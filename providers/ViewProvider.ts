@@ -30,7 +30,10 @@ export default class ViewProvider {
   public boot () {
     this.$container.with(['Adonis/Core/Server', 'Adonis/Core/View'], (Server, View: Edge) => {
       Server.hooks.before((ctx) => {
-        ctx.view = View.share({})
+        ctx.view = View.share({
+          request: ctx.request,
+          user: ctx.auth ? ctx.auth.user : null,
+        })
       })
     })
   }
