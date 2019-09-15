@@ -55,6 +55,9 @@
     "tslint-eslint-rules": "^5.4.0",
     "typescript": "^3.6.3"
   },
+  "peerDependencies": {
+    "@adonisjs/core": "^2.x.x"
+  },
   "nyc": {
     "exclude": [
       "test"
