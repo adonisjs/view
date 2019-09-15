@@ -2,6 +2,13 @@
   "name": "@adonisjs/view",
   "version": "0.0.0",
   "description": "View/template engine for AdonisJs",
+  "main": "build/providers/ViewProvider.js",
+  "files": [
+    "build/adonis-typings",
+    "build/providers",
+    "build/instructions.js"
+  ],
+  "typings": "./build/adonis-typings/index.d.ts",
   "scripts": {
     "mrm": "mrm --preset=@adonisjs/mrm-preset",
     "pretest": "npm run lint",
@@ -30,7 +37,10 @@
   },
   "homepage": "https://github.com/adonisjs/view#readme",
   "devDependencies": {
+    "@adonisjs/core": "^2.1.0",
+    "@adonisjs/fold": "^6.2.0",
     "@adonisjs/mrm-preset": "^2.1.0",
+    "@adonisjs/sink": "^2.1.12",
     "@types/node": "^12.7.5",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2",
@@ -53,12 +63,6 @@
       ".ts"
     ]
   },
-  "main": "build/index.js",
-  "files": [
-    "build/src",
-    "build/index.d.ts",
-    "build/index.js"
-  ],
   "husky": {
     "hooks": {
       "pre-commit": "doctoc README.md --title='## Table of contents' && git add README.md",
@@ -73,5 +77,11 @@
   "np": {
     "contents": ".",
     "anyBranch": false
+  },
+  "dependencies": {
+    "edge.js": "^2.0.1"
+  },
+  "adonisjs": {
+    "instructions": "./build/instructions.js"
   }
 }
