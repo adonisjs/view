@@ -1,39 +1,56 @@
+# View
+> View/template layer for AdonisJs
+
+This module internally uses [edge.js](https://adonisjs.com/docs/view) and wraps it around a provider to be used with AdonisJs.
+
+[![circleci-image]][circleci-url] [![npm-image]][npm-url] ![][typescript-image] [![license-image]][license-url]
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of contents
 
-- [@adonisjs/view](#adonisjsview)
-  - [Change log](#change-log)
-  - [Contributing](#contributing)
-  - [Authors & License](#authors--license)
+- [Usage](#usage)
+- [Maintainers](#maintainers)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# @adonisjs/view
+## Usage
 
-[![circleci-image]][circleci-url]
-[![npm-image]][npm-url]
-![](https://img.shields.io/badge/Typescript-294E80.svg?style=for-the-badge&logo=typescript)
+Install the package from npm as follows:
 
-## Change log
+```sh
+adonis install @adonisjs/view
 
-The change log can be found in the [CHANGELOG.md](CHANGELOG.md) file.
+# yarn
+adonis install @adonisjs/view --yarn
+```
 
-## Contributing
+Next, register the provider inside `start/app` file.
 
-Everyone is welcome to contribute. Please go through the following guides, before getting started.
+```
+const providers = [
+ '@adonisjs/view'
+]
+```
 
-1. [Contributing](https://adonisjs.com/contributing)
-2. [Code of conduct](https://adonisjs.com/code-of-conduct)
+And then use it as follows:
 
+```ts
+import View from '@ioc:Adonis/Core/View'
 
-## Authors & License
-[Harminder virk](https://github.com/Harminder virk) and [contributors](https://github.com/adonisjs/view/graphs/contributors).
+View.render()
+```
 
-MIT License, see the included [MIT](LICENSE.md) file.
+## Maintainers
+[Harminder virk](https://github.com/thetutlage)
 
 [circleci-image]: https://img.shields.io/circleci/project/github/adonisjs/view/master.svg?style=for-the-badge&logo=circleci
 [circleci-url]: https://circleci.com/gh/adonisjs/view "circleci"
 
 [npm-image]: https://img.shields.io/npm/v/@adonisjs/view.svg?style=for-the-badge&logo=npm
 [npm-url]: https://npmjs.org/package/@adonisjs/view "npm"
+
+[typescript-image]: https://img.shields.io/badge/Typescript-294E80.svg?style=for-the-badge&logo=typescript
+
+[license-url]: LICENSE.md
+[license-image]: https://img.shields.io/aur/license/pac.svg?style=for-the-badge
