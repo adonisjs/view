@@ -5,7 +5,8 @@
   "main": "build/providers/ViewProvider.js",
   "files": [
     "build/adonis-typings",
-    "build/providers"
+    "build/providers",
+    "build/instructions.js"
   ],
   "typings": "./build/adonis-typings/index.d.ts",
   "scripts": {
@@ -39,6 +40,7 @@
     "@adonisjs/core": "^2.1.1",
     "@adonisjs/fold": "^6.2.0",
     "@adonisjs/mrm-preset": "^2.1.0",
+    "@adonisjs/sink": "^2.2.1",
     "@types/node": "^12.7.5",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2",
@@ -83,6 +85,7 @@
     "edge.js": "^2.0.1"
   },
   "adonisjs": {
+    "instructions": "./build/instructions.js",
     "types": "@adonisjs/view"
   }
 }
