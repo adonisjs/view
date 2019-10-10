@@ -34,12 +34,18 @@ export default class ViewProvider {
       'Adonis/Core/Route',
       'Adonis/Core/View',
     ], (Server, Route: RouterContract, View: Edge) => {
+      View.global('route', (_ctx, routeIdentifier, options, domain) => {
+        return Route.makeUrl(routeIdentifier, options, domain)
+      })
+
+      View.global('signedRoute', (_ctx, routeIdentifier, options, domain) => {
+        return Route.makeSignedUrl(routeIdentifier, options, domain)
+      })
+
       Server.hooks.before((ctx) => {
         ctx.view = View.share({
           request: ctx.request,
           user: ctx.auth ? ctx.auth.user : null,
-          route: Route.makeUrl.bind(Route),
-          signedRoute: Route.makeSignedUrl.bind(Route),
         })
       })
     })
