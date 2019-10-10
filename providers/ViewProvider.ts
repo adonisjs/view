@@ -9,6 +9,7 @@
 
 import { Edge } from 'edge.js'
 import { IocContract } from '@adonisjs/fold'
+import { RouterContract } from '@ioc:Adonis/Core/Route'
 
 export default class ViewProvider {
   constructor (protected $container: IocContract) {}
@@ -28,11 +29,17 @@ export default class ViewProvider {
   }
 
   public boot () {
-    this.$container.with(['Adonis/Core/Server', 'Adonis/Core/View'], (Server, View: Edge) => {
+    this.$container.with([
+      'Adonis/Core/Server',
+      'Adonis/Core/Route',
+      'Adonis/Core/View',
+    ], (Server, Route: RouterContract, View: Edge) => {
       Server.hooks.before((ctx) => {
         ctx.view = View.share({
           request: ctx.request,
           user: ctx.auth ? ctx.auth.user : null,
+          route: Route.makeUrl.bind(Route),
+          signedRoute: Route.makeSignedUrl.bind(Route),
         })
       })
     })
