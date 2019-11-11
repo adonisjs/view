@@ -16,11 +16,10 @@ import * as tsStatic from '@adonisjs/sink'
 export default function instructions (
   projectRoot: string,
   _app,
-  { RcFile, kleur }: typeof tsStatic,
+  { RcFile, logger }: typeof tsStatic,
 ) {
   const rcFile = new RcFile(projectRoot)
   rcFile.addMetaFile('resources/views/**/*.edge')
   rcFile.commit()
-
-  console.log(`  update  ${kleur.green('.adonisrc.json')}`)
+  logger.update('.adonisrc.json')
 }

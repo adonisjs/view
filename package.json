@@ -40,7 +40,7 @@
     "@adonisjs/core": "^2.3.0",
     "@adonisjs/fold": "^6.2.2",
     "@adonisjs/mrm-preset": "^2.1.0",
-    "@adonisjs/sink": "^2.2.3",
+    "@adonisjs/sink": "^2.3.0",
     "@types/node": "^12.12.7",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2",
