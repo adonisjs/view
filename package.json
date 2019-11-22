@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/adonisjs/view#readme",
   "devDependencies": {
-    "@adonisjs/core": "^2.4.0",
+    "@adonisjs/core": "^2.5.0",
     "@adonisjs/fold": "^6.2.3",
     "@adonisjs/mrm-preset": "^2.1.0",
     "@adonisjs/sink": "^2.3.1",

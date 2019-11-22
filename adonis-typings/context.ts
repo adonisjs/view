@@ -10,8 +10,21 @@
 /// <reference path="./view.ts" />
 
 import { ViewContract } from '@ioc:Adonis/Core/View'
+
+/**
+ * Decorate context
+ */
 declare module '@ioc:Adonis/Core/HttpContext' {
   interface HttpContextContract {
     view: ViewContract,
+  }
+}
+
+/**
+ * Decorate router
+ */
+declare module '@ioc:Adonis/Core/Route' {
+  interface BriskRouteContract {
+    render: (template: string) => BriskRouteContract,
   }
 }

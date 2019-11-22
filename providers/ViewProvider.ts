@@ -34,14 +34,34 @@ export default class ViewProvider {
       'Adonis/Core/Route',
       'Adonis/Core/View',
     ], (Server, Route: RouterContract, View: Edge) => {
+      /**
+       * Adding `route` global
+       */
       View.global('route', (_ctx, routeIdentifier, options, domain) => {
         return Route.makeUrl(routeIdentifier, options, domain)
       })
 
+      /**
+       * Adding `signedRoute` global
+       */
       View.global('signedRoute', (_ctx, routeIdentifier, options, domain) => {
         return Route.makeSignedUrl(routeIdentifier, options, domain)
       })
 
+      /**
+       * Adding render to the brisk route
+       */
+      Route.BriskRoute.macro('render', function renderView (template: string) {
+        this.setHandler(({ view }) => {
+          return view.render(template)
+        }, 'render')
+
+        return this
+      })
+
+      /**
+       * Adding view to the ctx. Later this will be moved to the macro
+       */
       Server.hooks.before((ctx) => {
         ctx.view = View.share({
           request: ctx.request,
