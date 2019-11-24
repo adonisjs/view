@@ -25,6 +25,6 @@ declare module '@ioc:Adonis/Core/HttpContext' {
  */
 declare module '@ioc:Adonis/Core/Route' {
   interface BriskRouteContract {
-    render: (template: string) => BriskRouteContract,
+    render: (template: string, data?: any) => BriskRouteContract,
   }
 }

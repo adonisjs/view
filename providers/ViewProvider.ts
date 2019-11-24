@@ -9,6 +9,7 @@
 
 import { Edge } from 'edge.js'
 import { IocContract } from '@adonisjs/fold'
+import { ViewContract } from '@ioc:Adonis/Core/View'
 import { RouterContract } from '@ioc:Adonis/Core/Route'
 
 export default class ViewProvider {
@@ -51,9 +52,9 @@ export default class ViewProvider {
       /**
        * Adding render to the brisk route
        */
-      Route.BriskRoute.macro('render', function renderView (template: string) {
-        this.setHandler(({ view }) => {
-          return view.render(template)
+      Route.BriskRoute.macro('render', function renderView (template: string, data?: any) {
+        this.setHandler(({ view }: { view: ViewContract }) => {
+          return view.render(template, data)
         }, 'render')
 
         return this
