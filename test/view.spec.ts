@@ -55,11 +55,9 @@ test.group('View', () => {
       }
     })
 
-    ioc.bind('Adonis/Core/Server', () => {
+    ioc.bind('Adonis/Core/HttpContext', () => {
       return {
-        hooks: {
-          before () {},
-        },
+        getter () {},
       }
     })
 
@@ -110,11 +108,9 @@ test.group('View', () => {
       }
     })
 
-    ioc.bind('Adonis/Core/Server', () => {
+    ioc.bind('Adonis/Core/HttpContext', () => {
       return {
-        hooks: {
-          before () {},
-        },
+        getter () {},
       }
     })
 

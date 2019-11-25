@@ -11,6 +11,7 @@ import { Edge } from 'edge.js'
 import { IocContract } from '@adonisjs/fold'
 import { ViewContract } from '@ioc:Adonis/Core/View'
 import { RouterContract } from '@ioc:Adonis/Core/Route'
+import { HttpContextConstructorContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class ViewProvider {
   constructor (protected $container: IocContract) {}
@@ -31,10 +32,10 @@ export default class ViewProvider {
 
   public boot () {
     this.$container.with([
-      'Adonis/Core/Server',
       'Adonis/Core/Route',
       'Adonis/Core/View',
-    ], (Server, Route: RouterContract, View: Edge) => {
+      'Adonis/Core/HttpContext',
+    ], (Route: RouterContract, View: Edge, HttpContext: HttpContextConstructorContract) => {
       /**
        * Adding `route` global
        */
@@ -61,14 +62,13 @@ export default class ViewProvider {
       })
 
       /**
-       * Adding view to the ctx. Later this will be moved to the macro
+       * Adding view to the ctx
        */
-      Server.hooks.before((ctx) => {
-        ctx.view = View.share({
-          request: ctx.request,
-          user: ctx.auth ? ctx.auth.user : null,
+      HttpContext.getter('view', function () {
+        return View.share({
+          request: this.request,
         })
-      })
+      }, true)
     })
   }
 }
