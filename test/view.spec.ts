@@ -67,6 +67,7 @@ test.group('View', () => {
           assert.equal(identifier, '/')
           assert.deepEqual(options, {})
           assert.equal(domain, 'root')
+          return '/'
         },
         BriskRoute: {
           macro () {},
@@ -75,6 +76,7 @@ test.group('View', () => {
           assert.equal(identifier, '/signed')
           assert.deepEqual(options, {})
           assert.equal(domain, 'root')
+          return '/'
         },
       }
     })

@@ -40,14 +40,23 @@ export default class ViewProvider {
        * Adding `route` global
        */
       View.global('route', (_ctx, routeIdentifier, options, domain) => {
-        return Route.makeUrl(routeIdentifier, options, domain)
+        const url = Route.makeUrl(routeIdentifier, options, domain)
+        if (!url) {
+          throw new Error(`Unable to lookup route for "${routeIdentifier}" referenced by view template`)
+        }
+        return url
       })
 
       /**
        * Adding `signedRoute` global
        */
       View.global('signedRoute', (_ctx, routeIdentifier, options, domain) => {
-        return Route.makeSignedUrl(routeIdentifier, options, domain)
+        const url = Route.makeSignedUrl(routeIdentifier, options, domain)
+        if (!url) {
+          throw new Error(`Unable to lookup route for "${routeIdentifier}" referenced by view template`)
+        }
+
+        return url
       })
 
       /**
