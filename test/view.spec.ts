@@ -85,8 +85,8 @@ test.group('View', () => {
     await registrar.useProviders([join(__dirname, '..', 'providers', 'ViewProvider')]).registerAndBoot()
 
     const view = ioc.use('Adonis/Core/View')
-    view.registerTemplate('dummy', { template: `{{ route('/', {}, 'root') }}` })
-    view.registerTemplate('signedDummy', { template: `{{ signedRoute('/signed', {}, 'root') }}` })
+    view.registerTemplate('dummy', { template: '{{ route(\'/\', {}, \'root\') }}' })
+    view.registerTemplate('signedDummy', { template: '{{ signedRoute(\'/signed\', {}, \'root\') }}' })
 
     view.render('dummy')
     view.render('signedDummy')
