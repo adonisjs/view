@@ -45,7 +45,6 @@
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2",
     "del-cli": "^3.0.0",
-    "doctoc": "^1.4.0",
     "husky": "^4.2.3",
     "japa": "^3.0.1",
     "mrm": "^2.0.2",
@@ -68,7 +67,6 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "doctoc README.md --title='## Table of contents' && git add README.md",
       "commit-msg": "node ./node_modules/@adonisjs/mrm-preset/validateCommit/conventional/validate.js"
     }
   },
