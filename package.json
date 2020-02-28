@@ -41,17 +41,17 @@
     "@adonisjs/fold": "^6.2.3",
     "@adonisjs/mrm-preset": "^2.2.2",
     "@adonisjs/sink": "^2.4.0",
-    "@types/node": "^12.12.20",
+    "@types/node": "^13.7.6",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2",
     "del-cli": "^3.0.0",
     "doctoc": "^1.4.0",
-    "husky": "^3.1.0",
+    "husky": "^4.2.3",
     "japa": "^3.0.1",
     "mrm": "^2.0.2",
     "np": "^5.2.1",
     "ts-node": "^8.5.4",
-    "tslint": "^5.20.1",
+    "tslint": "^6.0.0",
     "tslint-eslint-rules": "^5.4.0",
     "typescript": "^3.7.3"
   },
@@ -82,7 +82,7 @@
     "anyBranch": false
   },
   "dependencies": {
-    "edge.js": "^2.0.2"
+    "edge.js": "^2.1.0"
   },
   "adonisjs": {
     "instructions": "./build/instructions.js",
