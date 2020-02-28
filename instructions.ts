@@ -15,7 +15,7 @@ import * as tsStatic from '@adonisjs/sink'
  */
 export default function instructions (
   projectRoot: string,
-  _app,
+  _: any,
   { RcFile, logger }: typeof tsStatic,
 ) {
   const rcFile = new RcFile(projectRoot)
