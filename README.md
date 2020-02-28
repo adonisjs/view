@@ -1,28 +1,7 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-## Table of contents
-
-- [AdonisJS Template Engine](#adonisjs-template-engine)
-- [
-    
-      Website
-    
-     | 
-    
-      Guides
-    
-     | 
-    
-      Contributing
-    
-  ](#website%0A----%0A------%0A----%0A------guides%0A----%0A------%0A----%0A------contributing)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 <div align="center">
   <h3>AdonisJS Template Engine</h3>
   <p>
-    Template engine for AdonisJS built on top of Edge
+    This repo holds the template engine (Edge) used by AdonisJS.
   </p>
 </div>
 
