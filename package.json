@@ -55,7 +55,7 @@
     "typescript": "^3.8.3"
   },
   "peerDependencies": {
-    "@adonisjs/core": "^2.0.0"
+    "@adonisjs/core": ">=5.0.0-preview"
   },
   "nyc": {
     "exclude": [
