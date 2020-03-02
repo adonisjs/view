@@ -37,11 +37,11 @@
   },
   "homepage": "https://github.com/adonisjs/view#readme",
   "devDependencies": {
-    "@adonisjs/core": "^2.6.2",
+    "@adonisjs/core": "^2.10.4",
     "@adonisjs/fold": "^6.2.3",
     "@adonisjs/mrm-preset": "^2.2.2",
     "@adonisjs/sink": "^2.4.0",
-    "@types/node": "^13.7.6",
+    "@types/node": "^13.7.7",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2",
     "del-cli": "^3.0.0",
@@ -52,7 +52,7 @@
     "mrm": "^2.0.2",
     "np": "^5.2.1",
     "ts-node": "^8.5.4",
-    "typescript": "^3.7.3"
+    "typescript": "^3.8.3"
   },
   "peerDependencies": {
     "@adonisjs/core": "^2.0.0"
