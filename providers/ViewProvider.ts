@@ -8,8 +8,8 @@
 */
 
 import { IocContract } from '@adonisjs/fold'
-import { Edge, EdgeContract, withCtx } from 'edge.js'
 import applyGlobals from 'edge.js/build/src/Edge/globals'
+import { Edge, EdgeContract, withCtx, safeValue } from 'edge.js'
 
 import { RouterContract } from '@ioc:Adonis/Core/Route'
 import { ApplicationContract } from '@ioc:Adonis/Core/Application'
@@ -112,8 +112,14 @@ export default class ViewProvider {
     this.$container.singleton('Adonis/Core/View', () => {
       const Env = this.$container.use('Adonis/Core/Env')
       const Application = this.$container.use('Adonis/Core/Application')
-      const edge = new Edge({ cache: Env.get('CACHE_VIEWS') })
+      const edge = new Edge({ cache: Env.get('CACHE_VIEWS') }) as unknown as ViewContract
       edge.mount(Application.viewsPath())
+
+      /**
+       * Sharing edge functions as utils
+       */
+      edge.utils = { withCtx, safeValue }
+
       return edge
     })
   }
@@ -129,7 +135,7 @@ export default class ViewProvider {
       'Adonis/Core/Application',
     ], (
       Route: RouterContract,
-      View: Edge,
+      View: ViewContract,
       HttpContext: HttpContextConstructorContract,
       Application: ApplicationContract,
     ) => {
