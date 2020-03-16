@@ -8,7 +8,7 @@
 */
 
 import { IocContract } from '@adonisjs/fold'
-import { Edge, EdgeContract } from 'edge.js'
+import { Edge, EdgeContract, withCtx } from 'edge.js'
 import applyGlobals from 'edge.js/build/src/Edge/globals'
 
 import { RouterContract } from '@ioc:Adonis/Core/Route'
@@ -29,7 +29,7 @@ export default class ViewProvider {
     /**
      * Adding `route` global
      */
-    View.global('route', (
+    View.global('route', withCtx((
       ctx: ContextContract,
       routeIdentifier: string,
       options?: any,
@@ -48,12 +48,12 @@ export default class ViewProvider {
       }
 
       return url
-    })
+    }))
 
     /**
      * Adding `signedRoute` global
      */
-    View.global('signedRoute', (
+    View.global('signedRoute', withCtx((
       ctx: ContextContract,
       routeIdentifier: string,
       options?: any,
@@ -68,7 +68,7 @@ export default class ViewProvider {
       }
 
       return url
-    })
+    }))
   }
 
   /**

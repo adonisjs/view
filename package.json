@@ -41,7 +41,7 @@
     "@adonisjs/fold": "^6.2.3",
     "@adonisjs/mrm-preset": "^2.2.2",
     "@adonisjs/sink": "^2.4.0",
-    "@types/node": "^13.7.7",
+    "@types/node": "^13.9.1",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2",
     "del-cli": "^3.0.0",
@@ -80,7 +80,7 @@
     "anyBranch": false
   },
   "dependencies": {
-    "edge.js": "^2.1.0"
+    "edge.js": "^2.2.0"
   },
   "adonisjs": {
     "instructions": "./build/instructions.js",
