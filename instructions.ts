@@ -13,12 +13,8 @@ import * as tsStatic from '@adonisjs/sink'
  * Adding `views` to `.adonisrc.json` file to copy them to the build
  * directory
  */
-export default function instructions (
-  projectRoot: string,
-  _: any,
-  { RcFile, logger }: typeof tsStatic,
-) {
-  const rcFile = new RcFile(projectRoot)
+export default function instructions (projectRoot: string, _: any, { files, logger }: typeof tsStatic) {
+  const rcFile = new files.AdonisRcFile(projectRoot)
   rcFile.addMetaFile('resources/views/**/*.edge')
   rcFile.commit()
   logger.update('.adonisrc.json')

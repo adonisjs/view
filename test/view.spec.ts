@@ -9,7 +9,7 @@
 
 import test from 'japa'
 import { join } from 'path'
-import { Edge, safeValue, withCtx } from 'edge.js'
+import { Edge } from 'edge.js'
 import { Ioc, Registrar } from '@adonisjs/fold'
 
 test.group('View', () => {
@@ -133,29 +133,5 @@ test.group('View', () => {
 
     const registrar = new Registrar(ioc)
     await registrar.useProviders([join(__dirname, '..', 'providers', 'ViewProvider')]).registerAndBoot()
-  })
-
-  test('share edge utils with the view binding', async (assert) => {
-    const ioc = new Ioc()
-
-    ioc.bind('Adonis/Core/Env', () => {
-      return {
-        get () {},
-      }
-    })
-
-    ioc.bind('Adonis/Core/Application', () => {
-      return {
-        viewsPath () {
-          return __dirname
-        },
-      }
-    })
-
-    const registrar = new Registrar(ioc)
-    await registrar.useProviders([join(__dirname, '..', 'providers', 'ViewProvider')]).registerAndBoot()
-
-    assert.instanceOf(ioc.use('Adonis/Core/View'), Edge)
-    assert.deepEqual(ioc.use('Adonis/Core/View').utils, { safeValue, withCtx })
   })
 })

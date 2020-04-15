@@ -8,19 +8,18 @@
 */
 
 import { IocContract } from '@adonisjs/fold'
-import applyGlobals from 'edge.js/build/src/Edge/globals'
-import { Edge, EdgeContract, withCtx, safeValue } from 'edge.js'
+import { Edge, EdgeContract, GLOBALS } from 'edge.js'
 
+import { ViewContract } from '@ioc:Adonis/Core/View'
 import { RouterContract } from '@ioc:Adonis/Core/Route'
 import { ApplicationContract } from '@ioc:Adonis/Core/Application'
-import { ViewContract, ContextContract } from '@ioc:Adonis/Core/View'
 import { HttpContextConstructorContract } from '@ioc:Adonis/Core/HttpContext'
 
 /**
  * View provider to register view to the application
  */
 export default class ViewProvider {
-  constructor (protected $container: IocContract) {}
+  constructor (protected container: IocContract) {}
 
   /**
    * Add globals for resolving routes
@@ -29,8 +28,7 @@ export default class ViewProvider {
     /**
      * Adding `route` global
      */
-    View.global('route', withCtx((
-      ctx: ContextContract,
+    View.global('route', (
       routeIdentifier: string,
       options?: any,
       domain?: string,
@@ -41,34 +39,26 @@ export default class ViewProvider {
        * Raise error when unable to lookup view.
        */
       if (!url) {
-        const filename = ctx.resolve('$filename')
-        throw new Error(
-          `Unable to lookup route "${routeIdentifier}" referenced by "${filename}" template`,
-        )
+        throw new Error(`Unable to lookup route "${routeIdentifier}"`)
       }
 
       return url
-    }))
+    })
 
     /**
      * Adding `signedRoute` global
      */
-    View.global('signedRoute', withCtx((
-      ctx: ContextContract,
+    View.global('signedRoute', (
       routeIdentifier: string,
       options?: any,
       domain?: string,
     ) => {
       const url = Route.makeSignedUrl(routeIdentifier, options, domain)
       if (!url) {
-        const filename = ctx.resolve('$filename')
-        throw new Error(
-          `Unable to lookup route "${routeIdentifier}" referenced by "${filename}" template`,
-        )
+        throw new Error(`Unable to lookup route "${routeIdentifier}"`)
       }
-
       return url
-    }))
+    })
   }
 
   /**
@@ -109,17 +99,11 @@ export default class ViewProvider {
    * Register view binding
    */
   public register () {
-    this.$container.singleton('Adonis/Core/View', () => {
-      const Env = this.$container.use('Adonis/Core/Env')
-      const Application = this.$container.use('Adonis/Core/Application')
+    this.container.singleton('Adonis/Core/View', () => {
+      const Env = this.container.use('Adonis/Core/Env')
+      const Application = this.container.use('Adonis/Core/Application')
       const edge = new Edge({ cache: Env.get('CACHE_VIEWS') }) as unknown as ViewContract
       edge.mount(Application.viewsPath())
-
-      /**
-       * Sharing edge functions as utils
-       */
-      edge.utils = { withCtx, safeValue }
-
       return edge
     })
   }
@@ -128,7 +112,7 @@ export default class ViewProvider {
    * Setup view on boot
    */
   public boot () {
-    this.$container.with([
+    this.container.with([
       'Adonis/Core/Route',
       'Adonis/Core/View',
       'Adonis/Core/HttpContext',
@@ -141,7 +125,7 @@ export default class ViewProvider {
     ) => {
       this.addRouteGlobal(View, Route)
       this.addAppGlobal(View, Application)
-      applyGlobals(View)
+      Object.keys(GLOBALS).forEach((key) => View.global(key, GLOBALS[key]))
 
       this.registerBriskRoute(Route)
       this.registerHTTPContextGetter(HttpContext, View)
