@@ -134,4 +134,54 @@ test.group('View', () => {
     const registrar = new Registrar(ioc)
     await registrar.useProviders([join(__dirname, '..', 'providers', 'ViewProvider')]).registerAndBoot()
   })
+
+  test('ensure GLOBALS object exists on the View binding', async (assert) => {
+    const ioc = new Ioc()
+
+    ioc.bind('Adonis/Core/Env', () => {
+      return {
+        get () {},
+      }
+    })
+
+    ioc.bind('Adonis/Core/Application', () => {
+      return {
+        viewsPath () {
+          return __dirname
+        },
+      }
+    })
+
+    ioc.bind('Adonis/Core/HttpContext', () => {
+      return {
+        getter () {},
+      }
+    })
+
+    ioc.bind('Adonis/Core/Route', () => {
+      return {
+        makeUrl (identifier, options, domain) {
+          assert.equal(identifier, '/')
+          assert.deepEqual(options, {})
+          assert.equal(domain, 'root')
+          return '/'
+        },
+        BriskRoute: {
+          macro () {},
+        },
+        makeSignedUrl (identifier, options, domain) {
+          assert.equal(identifier, '/signed')
+          assert.deepEqual(options, {})
+          assert.equal(domain, 'root')
+          return '/'
+        },
+      }
+    })
+
+    const registrar = new Registrar(ioc)
+    await registrar.useProviders([join(__dirname, '..', 'providers', 'ViewProvider')]).registerAndBoot()
+
+    assert.isDefined(ioc.use('Adonis/Core/View').GLOBALS)
+    assert.property(ioc.use('Adonis/Core/View').GLOBALS, 'route')
+  })
 })

@@ -80,7 +80,7 @@
     "anyBranch": false
   },
   "dependencies": {
-    "edge.js": "^3.0.0"
+    "edge.js": "^3.0.1"
   },
   "adonisjs": {
     "instructions": "./build/instructions.js",
