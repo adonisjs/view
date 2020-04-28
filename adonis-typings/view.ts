@@ -9,14 +9,19 @@
 
 declare module '@ioc:Adonis/Core/View' {
   import {
-    TagContract as BaseTagContract,
     EdgeContract as BaseEdgeContract,
     ContextContract as BaseContextContract,
   } from 'edge.js'
 
   export interface ViewContract extends BaseEdgeContract {}
-  export interface TagContract extends BaseTagContract {}
   export interface ContextContract extends BaseContextContract {}
+
+  export {
+    TagContract,
+    ParserContract,
+    EdgeBufferContract,
+    TagTokenContract,
+  } from 'edge.js'
 
   const View: ViewContract
   export default View
