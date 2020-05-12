@@ -41,17 +41,17 @@
     "@adonisjs/fold": "^6.3.5",
     "@adonisjs/mrm-preset": "^2.3.0",
     "@adonisjs/sink": "^3.0.0",
-    "@types/node": "^13.13.4",
-    "commitizen": "^4.0.5",
-    "cz-conventional-changelog": "^3.0.2",
+    "@types/node": "^13.13.5",
+    "commitizen": "^4.1.2",
+    "cz-conventional-changelog": "^3.2.0",
     "del-cli": "^3.0.0",
-    "eslint": "^6.8.0",
+    "eslint": "^7.0.0",
     "eslint-plugin-adonis": "^1.0.9",
     "husky": "^4.2.5",
     "japa": "^3.0.1",
     "mrm": "^2.3.0",
     "np": "^5.2.1",
-    "ts-node": "^8.9.1",
+    "ts-node": "^8.10.1",
     "typescript": "^3.8.3"
   },
   "peerDependencies": {
@@ -80,7 +80,7 @@
     "anyBranch": false
   },
   "dependencies": {
-    "edge.js": "^3.0.3"
+    "edge.js": "^3.0.5"
   },
   "adonisjs": {
     "instructions": "./build/instructions.js",
