@@ -12,7 +12,7 @@ import { join } from 'path'
 import { Edge } from 'edge.js'
 import { Ioc, Registrar } from '@adonisjs/fold'
 
-test.group('View', () => {
+test.group('View Provider', () => {
   test('register view provider', async (assert) => {
     const ioc = new Ioc()
 

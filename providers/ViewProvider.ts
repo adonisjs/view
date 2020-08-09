@@ -7,9 +7,8 @@
  * file that was distributed with this source code.
 */
 
+import { EdgeContract } from 'edge.js'
 import { IocContract } from '@adonisjs/fold'
-import { Edge, EdgeContract, GLOBALS } from 'edge.js'
-
 import { ViewContract } from '@ioc:Adonis/Core/View'
 import { RouterContract } from '@ioc:Adonis/Core/Route'
 import { ApplicationContract } from '@ioc:Adonis/Core/Application'
@@ -102,6 +101,8 @@ export default class ViewProvider {
     this.container.singleton('Adonis/Core/View', () => {
       const Env = this.container.use('Adonis/Core/Env')
       const Application = this.container.use('Adonis/Core/Application')
+      const { Edge } = require('edge.js')
+
       const edge = new Edge({ cache: Env.get('CACHE_VIEWS') }) as unknown as ViewContract
       edge.mount(Application.viewsPath())
       return edge
@@ -125,6 +126,8 @@ export default class ViewProvider {
     ) => {
       this.addRouteGlobal(View, Route)
       this.addAppGlobal(View, Application)
+
+      const { GLOBALS } = require('edge.js')
       Object.keys(GLOBALS).forEach((key) => View.global(key, GLOBALS[key]))
 
       this.registerBriskRoute(Route)
