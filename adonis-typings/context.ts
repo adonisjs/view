@@ -15,16 +15,16 @@ import { ViewContract } from '@ioc:Adonis/Core/View'
  * Decorate context
  */
 declare module '@ioc:Adonis/Core/HttpContext' {
-  interface HttpContextContract {
-    view: ViewContract,
-  }
+	interface HttpContextContract {
+		view: ViewContract
+	}
 }
 
 /**
  * Decorate router
  */
 declare module '@ioc:Adonis/Core/Route' {
-  interface BriskRouteContract {
-    render: (template: string, data?: any) => BriskRouteContract,
-  }
+	interface BriskRouteContract {
+		render: (template: string, data?: any) => BriskRouteContract
+	}
 }
