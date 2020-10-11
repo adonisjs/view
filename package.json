@@ -1,6 +1,6 @@
 {
   "name": "@adonisjs/view",
-  "version": "2.0.9",
+  "version": "3.0.0",
   "description": "View/template engine for AdonisJs",
   "main": "build/providers/ViewProvider.js",
   "files": [
@@ -96,13 +96,13 @@
     ],
     "env": {
       "CACHE_VIEWS": true
-		},
-		"metaFiles": [
-			{
-				"pattern": "resources/views/**/*.edge",
-				"reloadServer": false
-			}
-		]
+    },
+    "metaFiles": [
+      {
+        "pattern": "resources/views/**/*.edge",
+        "reloadServer": false
+      }
+    ]
   },
   "publishConfig": {
     "access": "public",
