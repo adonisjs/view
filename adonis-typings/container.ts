@@ -1,4 +1,4 @@
-/*
+/**
  * @adonisjs/view
  *
  * (c) Harminder Virk <virk@adonisjs.com>
@@ -7,6 +7,10 @@
  * file that was distributed with this source code.
  */
 
-/// <reference path="./view.ts" />
-/// <reference path="./context.ts" />
-/// <reference path="./container.ts" />
+declare module '@ioc:Adonis/Core/Application' {
+	import { ViewContract } from '@ioc:Adonis/Core/View'
+
+	interface ContainerBindings {
+		'Adonis/Core/View': ViewContract
+	}
+}

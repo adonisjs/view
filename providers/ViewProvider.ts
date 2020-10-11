@@ -8,7 +8,6 @@
  */
 
 import { EdgeContract } from 'edge.js'
-import { IocContract } from '@adonisjs/fold'
 import { ViewContract } from '@ioc:Adonis/Core/View'
 import { RouterContract } from '@ioc:Adonis/Core/Route'
 import { ApplicationContract } from '@ioc:Adonis/Core/Application'
@@ -18,7 +17,8 @@ import { HttpContextConstructorContract } from '@ioc:Adonis/Core/HttpContext'
  * View provider to register view to the application
  */
 export default class ViewProvider {
-	constructor(protected container: IocContract) {}
+	constructor(protected app: ApplicationContract) {}
+	public static needsApplication = true
 
 	/**
 	 * Add globals for resolving routes
@@ -94,13 +94,12 @@ export default class ViewProvider {
 	 * Register view binding
 	 */
 	public register() {
-		this.container.singleton('Adonis/Core/View', () => {
-			const Env = this.container.use('Adonis/Core/Env')
-			const Application = this.container.use('Adonis/Core/Application')
+		this.app.container.singleton('Adonis/Core/View', () => {
+			const Env = this.app.container.use('Adonis/Core/Env')
 			const { Edge } = require('edge.js')
 
 			const edge = (new Edge({ cache: Env.get('CACHE_VIEWS') }) as unknown) as ViewContract
-			edge.mount(Application.viewsPath())
+			edge.mount(this.app.viewsPath())
 			return edge
 		})
 	}
@@ -109,21 +108,11 @@ export default class ViewProvider {
 	 * Setup view on boot
 	 */
 	public boot() {
-		this.container.with(
-			[
-				'Adonis/Core/Route',
-				'Adonis/Core/View',
-				'Adonis/Core/HttpContext',
-				'Adonis/Core/Application',
-			],
-			(
-				Route: RouterContract,
-				View: ViewContract,
-				HttpContext: HttpContextConstructorContract,
-				Application: ApplicationContract
-			) => {
+		this.app.container.with(
+			['Adonis/Core/Route', 'Adonis/Core/View', 'Adonis/Core/HttpContext'],
+			(Route, View, HttpContext) => {
 				this.addRouteGlobal(View, Route)
-				this.addAppGlobal(View, Application)
+				this.addAppGlobal(View, this.app)
 
 				const { GLOBALS } = require('edge.js')
 				Object.keys(GLOBALS).forEach((key) => View.global(key, GLOBALS[key]))

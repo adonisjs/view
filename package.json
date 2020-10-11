@@ -5,8 +5,7 @@
   "main": "build/providers/ViewProvider.js",
   "files": [
     "build/adonis-typings",
-    "build/providers",
-    "build/instructions.js"
+    "build/providers"
   ],
   "typings": "./build/adonis-typings/index.d.ts",
   "scripts": {
@@ -39,30 +38,30 @@
   },
   "homepage": "https://github.com/adonisjs/view#readme",
   "devDependencies": {
-    "@adonisjs/core": "^5.0.0-preview-rc-1.7",
-    "@adonisjs/fold": "^6.3.5",
+    "@adonisjs/core": "^5.0.1-beta-rc-3",
     "@adonisjs/mrm-preset": "^2.4.0",
-    "@adonisjs/require-ts": "^1.0.0",
-    "@adonisjs/sink": "^3.0.2",
-    "@types/node": "^14.6.3",
+    "@adonisjs/require-ts": "^1.0.4",
+    "@adonisjs/sink": "^4.0.3",
+    "@poppinss/dev-utils": "^1.0.11",
+    "@types/node": "^14.11.2",
     "commitizen": "^4.2.1",
     "cz-conventional-changelog": "^3.3.0",
     "del-cli": "^3.0.1",
-    "eslint": "^7.8.1",
-    "eslint-config-prettier": "^6.11.0",
+    "eslint": "^7.10.0",
+    "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-adonis": "^1.0.15",
     "eslint-plugin-prettier": "^3.1.4",
     "github-label-sync": "^2.0.0",
-    "husky": "^4.2.5",
+    "husky": "^4.3.0",
     "japa": "^3.1.1",
-    "mrm": "^2.3.6",
+    "mrm": "^2.5.1",
     "np": "^6.5.0",
     "npm-audit-html": "^1.4.3",
-    "prettier": "^2.1.1",
-    "typescript": "^4.0.2"
+    "prettier": "^2.1.2",
+    "typescript": "^4.0.3"
   },
   "peerDependencies": {
-    "@adonisjs/core": ">=5.0.0-preview"
+    "@adonisjs/core": "^5.0.1-beta-rc"
   },
   "nyc": {
     "exclude": [
@@ -88,13 +87,25 @@
     "anyBranch": false
   },
   "dependencies": {
-    "edge.js": "^3.1.1"
+    "edge.js": "^3.2.0"
   },
   "adonisjs": {
-    "instructions": "./build/instructions.js",
     "types": "@adonisjs/view",
     "providers": [
       "@adonisjs/view"
-    ]
+    ],
+    "env": {
+      "CACHE_VIEWS": true
+		},
+		"metaFiles": [
+			{
+				"pattern": "resources/views/**/*.edge",
+				"reloadServer": false
+			}
+		]
+  },
+  "publishConfig": {
+    "access": "public",
+    "tag": "next"
   }
 }

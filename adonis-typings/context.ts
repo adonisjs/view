@@ -7,14 +7,11 @@
  * file that was distributed with this source code.
  */
 
-/// <reference path="./view.ts" />
-
-import { ViewContract } from '@ioc:Adonis/Core/View'
-
 /**
  * Decorate context
  */
 declare module '@ioc:Adonis/Core/HttpContext' {
+	import { ViewContract } from '@ioc:Adonis/Core/View'
 	interface HttpContextContract {
 		view: ViewContract
 	}

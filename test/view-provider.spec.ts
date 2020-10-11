@@ -10,184 +10,73 @@
 import test from 'japa'
 import { join } from 'path'
 import { Edge } from 'edge.js'
-import { Ioc, Registrar } from '@adonisjs/fold'
+import { Filesystem } from '@poppinss/dev-utils'
+import { Application } from '@adonisjs/core/build/standalone'
 
-test.group('View Provider', () => {
+const fs = new Filesystem(join(__dirname, 'app'))
+
+export async function setup() {
+	await fs.add('.env', '')
+	await fs.add(
+		'config/app.ts',
+		`
+		export const appKey = '${Math.random().toFixed(36).substring(2, 38)}',
+		export const http = {
+			cookie: {},
+			trustProxy: () => true,
+		}
+	`
+	)
+
+	const app = new Application(fs.basePath, 'web', {
+		providers: ['@adonisjs/core', '../../providers/ViewProvider'],
+	})
+
+	app.setup()
+	app.registerProviders()
+	await app.bootProviders()
+
+	return app
+}
+
+test.group('View Provider', (group) => {
+	group.afterEach(async () => {
+		await fs.cleanup()
+	})
+
 	test('register view provider', async (assert) => {
-		const ioc = new Ioc()
+		const app = await setup()
 
-		ioc.bind('Adonis/Core/Env', () => {
-			return {
-				get() {},
-			}
-		})
-
-		ioc.bind('Adonis/Core/Application', () => {
-			return {
-				viewsPath() {
-					return __dirname
-				},
-			}
-		})
-
-		const registrar = new Registrar(ioc)
-		await registrar
-			.useProviders([join(__dirname, '..', 'providers', 'ViewProvider')])
-			.registerAndBoot()
-
-		assert.instanceOf(ioc.use('Adonis/Core/View'), Edge)
-		assert.equal(ioc.use('Adonis/Core/View').loader.mounted.default, __dirname)
+		assert.instanceOf(app.container.use('Adonis/Core/View'), Edge)
+		assert.equal(
+			app.container.use('Adonis/Core/View').loader.mounted.default,
+			join(fs.basePath, 'resources/views')
+		)
 	})
 
 	test('share route and signedRoute methods with view', async (assert) => {
-		assert.plan(6)
-		const ioc = new Ioc()
+		const app = await setup()
 
-		ioc.bind('Adonis/Core/Env', () => {
-			return {
-				get() {},
-			}
-		})
+		app.container.use('Adonis/Core/Route').get('/', async () => {})
+		app.container.use('Adonis/Core/Route').get('/signed', async () => {})
+		app.container.use('Adonis/Core/Route').commit()
 
-		ioc.bind('Adonis/Core/Application', () => {
-			return {
-				viewsPath() {
-					return __dirname
-				},
-			}
-		})
-
-		ioc.bind('Adonis/Core/HttpContext', () => {
-			return {
-				getter() {},
-			}
-		})
-
-		ioc.bind('Adonis/Core/Route', () => {
-			return {
-				makeUrl(identifier, options, domain) {
-					assert.equal(identifier, '/')
-					assert.deepEqual(options, {})
-					assert.equal(domain, 'root')
-					return '/'
-				},
-				BriskRoute: {
-					macro() {},
-				},
-				makeSignedUrl(identifier, options, domain) {
-					assert.equal(identifier, '/signed')
-					assert.deepEqual(options, {})
-					assert.equal(domain, 'root')
-					return '/'
-				},
-			}
-		})
-
-		const registrar = new Registrar(ioc)
-		await registrar
-			.useProviders([join(__dirname, '..', 'providers', 'ViewProvider')])
-			.registerAndBoot()
-
-		const view = ioc.use('Adonis/Core/View')
+		const view = app.container.use('Adonis/Core/View')
 		view.registerTemplate('dummy', { template: "{{ route('/', {}, 'root') }}" })
 		view.registerTemplate('signedDummy', { template: "{{ signedRoute('/signed', {}, 'root') }}" })
 
-		view.render('dummy')
-		view.render('signedDummy')
+		assert.equal(view.render('dummy'), '/')
+		assert.match(view.render('signedDummy'), /\/signed\?signature=/)
 	})
 
-	test('add render brisk route macro', async (assert) => {
-		assert.plan(2)
-		const ioc = new Ioc()
-
-		ioc.bind('Adonis/Core/Env', () => {
-			return {
-				get() {},
-			}
-		})
-
-		ioc.bind('Adonis/Core/Application', () => {
-			return {
-				viewsPath() {
-					return __dirname
-				},
-			}
-		})
-
-		ioc.bind('Adonis/Core/HttpContext', () => {
-			return {
-				getter() {},
-			}
-		})
-
-		ioc.bind('Adonis/Core/Route', () => {
-			return {
-				makeUrl() {},
-				BriskRoute: {
-					macro(name: string, callback: any) {
-						assert.equal(name, 'render')
-						assert.isFunction(callback)
-					},
-				},
-				makeSignedUrl() {},
-			}
-		})
-
-		const registrar = new Registrar(ioc)
-		await registrar
-			.useProviders([join(__dirname, '..', 'providers', 'ViewProvider')])
-			.registerAndBoot()
+	test('add brisk route macro "render"', async (assert) => {
+		const app = await setup()
+		assert.isFunction(app.container.use('Adonis/Core/Route').on('/').render)
 	})
 
 	test('ensure GLOBALS object exists on the View binding', async (assert) => {
-		const ioc = new Ioc()
-
-		ioc.bind('Adonis/Core/Env', () => {
-			return {
-				get() {},
-			}
-		})
-
-		ioc.bind('Adonis/Core/Application', () => {
-			return {
-				viewsPath() {
-					return __dirname
-				},
-			}
-		})
-
-		ioc.bind('Adonis/Core/HttpContext', () => {
-			return {
-				getter() {},
-			}
-		})
-
-		ioc.bind('Adonis/Core/Route', () => {
-			return {
-				makeUrl(identifier, options, domain) {
-					assert.equal(identifier, '/')
-					assert.deepEqual(options, {})
-					assert.equal(domain, 'root')
-					return '/'
-				},
-				BriskRoute: {
-					macro() {},
-				},
-				makeSignedUrl(identifier, options, domain) {
-					assert.equal(identifier, '/signed')
-					assert.deepEqual(options, {})
-					assert.equal(domain, 'root')
-					return '/'
-				},
-			}
-		})
-
-		const registrar = new Registrar(ioc)
-		await registrar
-			.useProviders([join(__dirname, '..', 'providers', 'ViewProvider')])
-			.registerAndBoot()
-
-		assert.isDefined(ioc.use('Adonis/Core/View').GLOBALS)
-		assert.property(ioc.use('Adonis/Core/View').GLOBALS, 'route')
+		const app = await setup()
+		assert.isDefined(app.container.use('Adonis/Core/View').GLOBALS)
+		assert.property(app.container.use('Adonis/Core/View').GLOBALS, 'route')
 	})
 })
