@@ -108,6 +108,13 @@ export default class ViewProvider {
 	 * Setup view on boot
 	 */
 	public boot() {
+		/**
+		 * Register repl binding
+		 */
+		if (this.app.environment === 'repl') {
+			require('../src/Bindings/Repl')(this.app)
+		}
+
 		this.app.container.with(
 			['Adonis/Core/Route', 'Adonis/Core/View', 'Adonis/Core/HttpContext'],
 			(Route, View, HttpContext) => {
