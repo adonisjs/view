@@ -1,112 +1,113 @@
 {
-  "name": "@adonisjs/view",
-  "version": "3.0.3",
-  "description": "View/template engine for AdonisJs",
-  "main": "build/providers/ViewProvider.js",
-  "files": [
-    "build/adonis-typings",
-    "build/providers"
-  ],
-  "typings": "./build/adonis-typings/index.d.ts",
-  "scripts": {
-    "mrm": "mrm --preset=@adonisjs/mrm-preset",
-    "pretest": "npm run lint",
-    "test": "node japaFile.js",
-    "lint": "eslint . --ext=.ts",
-    "clean": "del build",
-    "compile": "npm run lint && npm run clean && tsc",
-    "build": "npm run compile",
-    "commit": "git-cz",
-    "release": "np",
-    "version": "npm run build",
-    "sync-labels": "github-label-sync --labels ./node_modules/@adonisjs/mrm-preset/gh-labels.json adonisjs/view",
-    "format": "prettier --write ."
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/adonisjs/view.git"
-  },
-  "keywords": [
-    "view",
-    "edge.js",
-    "template"
-  ],
-  "author": "virk,adonisjs",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/adonisjs/view/issues"
-  },
-  "homepage": "https://github.com/adonisjs/view#readme",
-  "devDependencies": {
-    "@adonisjs/core": "^5.0.2-beta-rc-6",
-    "@adonisjs/mrm-preset": "^2.4.0",
-    "@adonisjs/repl": "^1.1.2",
-    "@adonisjs/require-ts": "^1.0.4",
-    "@adonisjs/sink": "^4.0.3",
-    "@poppinss/dev-utils": "^1.0.11",
-    "@types/node": "^14.11.8",
-    "commitizen": "^4.2.1",
-    "cz-conventional-changelog": "^3.3.0",
-    "del-cli": "^3.0.1",
-    "eslint": "^7.11.0",
-    "eslint-config-prettier": "^6.12.0",
-    "eslint-plugin-adonis": "^1.0.15",
-    "eslint-plugin-prettier": "^3.1.4",
-    "github-label-sync": "^2.0.0",
-    "husky": "^4.3.0",
-    "japa": "^3.1.1",
-    "mrm": "^2.5.2",
-    "np": "^6.5.0",
-    "npm-audit-html": "^1.4.3",
-    "prettier": "^2.1.2",
-    "typescript": "^4.0.3"
-  },
-  "peerDependencies": {
-    "@adonisjs/core": "^5.0.2-beta-rc-4"
-  },
-  "nyc": {
-    "exclude": [
-      "test"
-    ],
-    "extension": [
-      ".ts"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "node ./node_modules/@adonisjs/mrm-preset/validateCommit/conventional/validate.js",
-      "pre-commit": "npm audit --production --json | ./node_modules/.bin/npm-audit-html && git add npm-audit.html"
-    }
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
-  },
-  "np": {
-    "contents": ".",
-    "anyBranch": false
-  },
-  "dependencies": {
-    "edge.js": "^3.2.0"
-  },
-  "adonisjs": {
-    "types": "@adonisjs/view",
-    "providers": [
-      "@adonisjs/view"
-    ],
-    "env": {
-      "CACHE_VIEWS": true
-    },
-    "metaFiles": [
-      {
-        "pattern": "resources/views/**/*.edge",
-        "reloadServer": false
-      }
-    ]
-  },
-  "publishConfig": {
-    "access": "public",
-    "tag": "next"
-  }
+	"name": "@adonisjs/view",
+	"version": "3.0.3",
+	"description": "View/template engine for AdonisJs",
+	"main": "build/providers/ViewProvider.js",
+	"files": [
+		"build/adonis-typings",
+		"build/providers",
+		"build/src"
+	],
+	"typings": "./build/adonis-typings/index.d.ts",
+	"scripts": {
+		"mrm": "mrm --preset=@adonisjs/mrm-preset",
+		"pretest": "npm run lint",
+		"test": "node japaFile.js",
+		"lint": "eslint . --ext=.ts",
+		"clean": "del build",
+		"compile": "npm run lint && npm run clean && tsc",
+		"build": "npm run compile",
+		"commit": "git-cz",
+		"release": "np",
+		"version": "npm run build",
+		"sync-labels": "github-label-sync --labels ./node_modules/@adonisjs/mrm-preset/gh-labels.json adonisjs/view",
+		"format": "prettier --write ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/adonisjs/view.git"
+	},
+	"keywords": [
+		"view",
+		"edge.js",
+		"template"
+	],
+	"author": "virk,adonisjs",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/adonisjs/view/issues"
+	},
+	"homepage": "https://github.com/adonisjs/view#readme",
+	"devDependencies": {
+		"@adonisjs/core": "^5.0.2-beta-rc-6",
+		"@adonisjs/mrm-preset": "^2.4.0",
+		"@adonisjs/repl": "^1.1.2",
+		"@adonisjs/require-ts": "^1.0.4",
+		"@adonisjs/sink": "^4.0.3",
+		"@poppinss/dev-utils": "^1.0.11",
+		"@types/node": "^14.11.8",
+		"commitizen": "^4.2.1",
+		"cz-conventional-changelog": "^3.3.0",
+		"del-cli": "^3.0.1",
+		"eslint": "^7.11.0",
+		"eslint-config-prettier": "^6.12.0",
+		"eslint-plugin-adonis": "^1.0.15",
+		"eslint-plugin-prettier": "^3.1.4",
+		"github-label-sync": "^2.0.0",
+		"husky": "^4.3.0",
+		"japa": "^3.1.1",
+		"mrm": "^2.5.2",
+		"np": "^6.5.0",
+		"npm-audit-html": "^1.4.3",
+		"prettier": "^2.1.2",
+		"typescript": "^4.0.3"
+	},
+	"peerDependencies": {
+		"@adonisjs/core": "^5.0.2-beta-rc-4"
+	},
+	"nyc": {
+		"exclude": [
+			"test"
+		],
+		"extension": [
+			".ts"
+		]
+	},
+	"husky": {
+		"hooks": {
+			"commit-msg": "node ./node_modules/@adonisjs/mrm-preset/validateCommit/conventional/validate.js",
+			"pre-commit": "npm audit --production --json | ./node_modules/.bin/npm-audit-html && git add npm-audit.html"
+		}
+	},
+	"config": {
+		"commitizen": {
+			"path": "cz-conventional-changelog"
+		}
+	},
+	"np": {
+		"contents": ".",
+		"anyBranch": false
+	},
+	"dependencies": {
+		"edge.js": "^3.2.0"
+	},
+	"adonisjs": {
+		"types": "@adonisjs/view",
+		"providers": [
+			"@adonisjs/view"
+		],
+		"env": {
+			"CACHE_VIEWS": true
+		},
+		"metaFiles": [
+			{
+				"pattern": "resources/views/**/*.edge",
+				"reloadServer": false
+			}
+		]
+	},
+	"publishConfig": {
+		"access": "public",
+		"tag": "next"
+	}
 }
