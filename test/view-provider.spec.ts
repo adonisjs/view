@@ -15,7 +15,7 @@ import { Application } from '@adonisjs/core/build/standalone'
 
 const fs = new Filesystem(join(__dirname, 'app'))
 
-export async function setup() {
+export async function setup(environment: 'web' | 'repl') {
 	await fs.add('.env', '')
 	await fs.add(
 		'config/app.ts',
@@ -28,8 +28,8 @@ export async function setup() {
 	`
 	)
 
-	const app = new Application(fs.basePath, 'web', {
-		providers: ['@adonisjs/core', '../../providers/ViewProvider'],
+	const app = new Application(fs.basePath, environment, {
+		providers: ['@adonisjs/core', '@adonisjs/repl', '../../providers/ViewProvider'],
 	})
 
 	app.setup()
@@ -45,7 +45,7 @@ test.group('View Provider', (group) => {
 	})
 
 	test('register view provider', async (assert) => {
-		const app = await setup()
+		const app = await setup('web')
 
 		assert.instanceOf(app.container.use('Adonis/Core/View'), Edge)
 		assert.equal(
@@ -55,7 +55,7 @@ test.group('View Provider', (group) => {
 	})
 
 	test('share route and signedRoute methods with view', async (assert) => {
-		const app = await setup()
+		const app = await setup('web')
 
 		app.container.use('Adonis/Core/Route').get('/', async () => {})
 		app.container.use('Adonis/Core/Route').get('/signed', async () => {})
@@ -70,13 +70,27 @@ test.group('View Provider', (group) => {
 	})
 
 	test('add brisk route macro "render"', async (assert) => {
-		const app = await setup()
+		const app = await setup('web')
 		assert.isFunction(app.container.use('Adonis/Core/Route').on('/').render)
 	})
 
 	test('ensure GLOBALS object exists on the View binding', async (assert) => {
-		const app = await setup()
+		const app = await setup('web')
 		assert.isDefined(app.container.use('Adonis/Core/View').GLOBALS)
 		assert.property(app.container.use('Adonis/Core/View').GLOBALS, 'route')
+	})
+
+	test('register repl binding', async (assert) => {
+		const app = await setup('repl')
+
+		assert.property(app.container.use('Adonis/Addons/Repl')['customMethods'], 'loadView')
+		assert.isFunction(
+			app.container.use('Adonis/Addons/Repl')['customMethods']['loadView']['handler']
+		)
+	})
+
+	test('do not register repl binding when not in repl environment', async (assert) => {
+		const app = await setup('web')
+		assert.notProperty(app.container.use('Adonis/Addons/Repl')['customMethods'], 'loadView')
 	})
 })
