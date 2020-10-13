@@ -60,16 +60,13 @@ export default class ViewProvider {
 	}
 
 	/**
-	 * Registering the brisk route to render view directory
-	 * from the route.
+	 * Registering the brisk route to render view directly from the route.
 	 */
 	private registerBriskRoute(Route: RouterContract) {
 		Route.BriskRoute.macro('render', function renderView(template: string, data?: any) {
-			this.setHandler(({ view }: { view: ViewContract }) => {
+			return this.setHandler(({ view }: { view: ViewContract }) => {
 				return view.render(template, data)
 			}, 'render')
-
-			return this
 		})
 	}
 
