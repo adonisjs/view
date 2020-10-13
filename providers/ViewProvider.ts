@@ -109,7 +109,10 @@ export default class ViewProvider {
 		 * Register repl binding
 		 */
 		if (this.app.environment === 'repl') {
-			require('../src/Bindings/Repl')(this.app)
+			this.app.container.with(['Adonis/Addons/Repl'], (Repl) => {
+				const { defineReplBindings } = require('../src/Bindings/Repl')
+				defineReplBindings(this.app, Repl)
+			})
 		}
 
 		this.app.container.with(
