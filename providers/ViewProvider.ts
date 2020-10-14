@@ -95,7 +95,17 @@ export default class ViewProvider {
 			const Env = this.app.container.use('Adonis/Core/Env')
 			const { Edge } = require('edge.js')
 
-			const edge = (new Edge({ cache: Env.get('CACHE_VIEWS') }) as unknown) as ViewContract
+			/**
+			 * Decide whether or not to cache views. If a user opts to remove
+			 * the valdation, then `CACHE_VIEWS` will be a string and not
+			 * a boolean, so we need to handle that case
+			 */
+			let cacheViews = Env.get('CACHE_VIEWS')
+			if (typeof cacheViews === 'string') {
+				cacheViews = cacheViews === 'true'
+			}
+
+			const edge = (new Edge({ cache: cacheViews }) as unknown) as ViewContract
 			edge.mount(this.app.viewsPath())
 			return edge
 		})
