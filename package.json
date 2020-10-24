@@ -42,7 +42,7 @@
 	"devDependencies": {
 		"@adonisjs/core": "^5.0.4-preview-rc-2",
 		"@adonisjs/mrm-preset": "^2.4.0",
-		"@adonisjs/repl": "^1.1.4",
+		"@adonisjs/repl": "^1.1.5",
 		"@adonisjs/require-ts": "^1.0.4",
 		"@adonisjs/sink": "^4.2.0",
 		"@poppinss/dev-utils": "^1.0.11",
