@@ -1,6 +1,6 @@
 {
 	"name": "@adonisjs/view",
-	"version": "3.0.7",
+	"version": "3.0.8",
 	"description": "View/template engine for AdonisJs",
 	"main": "build/providers/ViewProvider.js",
 	"files": [
