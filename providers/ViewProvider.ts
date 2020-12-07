@@ -8,6 +8,7 @@
  */
 
 import { EdgeContract } from 'edge.js'
+import { Supercharged } from 'edge-supercharged'
 import { ViewContract } from '@ioc:Adonis/Core/View'
 import { RouterContract } from '@ioc:Adonis/Core/Route'
 import { ApplicationContract } from '@ioc:Adonis/Core/Application'
@@ -94,6 +95,7 @@ export default class ViewProvider {
 		this.app.container.singleton('Adonis/Core/View', () => {
 			const Env = this.app.container.use('Adonis/Core/Env')
 			const { Edge } = require('edge.js')
+			const supercharged = new Supercharged()
 
 			/**
 			 * Decide whether or not to cache views. If a user opts to remove
@@ -107,6 +109,14 @@ export default class ViewProvider {
 
 			const edge = (new Edge({ cache: cacheViews }) as unknown) as ViewContract
 			edge.mount(this.app.viewsPath())
+
+			/**
+			 * Enable recurring mode when not caching views, so that the
+			 * edge supercharged can re-scan components on each
+			 * render call
+			 */
+			edge.use(supercharged.wire, { recurring: !cacheViews })
+
 			return edge
 		})
 	}

@@ -91,6 +91,7 @@
 		"anyBranch": false
 	},
 	"dependencies": {
+		"edge-supercharged": "^1.1.0",
 		"edge.js": "^3.5.1"
 	},
 	"adonisjs": {
