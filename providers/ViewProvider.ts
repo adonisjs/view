@@ -28,28 +28,15 @@ export default class ViewProvider {
 		/**
 		 * Adding `route` global
 		 */
-		View.global('route', (routeIdentifier: string, options?: any, domain?: string) => {
-			const url = Route.makeUrl(routeIdentifier, options, domain)
-
-			/**
-			 * Raise error when unable to lookup view.
-			 */
-			if (!url) {
-				throw new Error(`Unable to lookup route "${routeIdentifier}"`)
-			}
-
-			return url
+		View.global('route', (routeIdentifier: string, params?: any, options?: any) => {
+			return Route.makeUrl(routeIdentifier, params, options)
 		})
 
 		/**
 		 * Adding `signedRoute` global
 		 */
-		View.global('signedRoute', (routeIdentifier: string, options?: any, domain?: string) => {
-			const url = Route.makeSignedUrl(routeIdentifier, options, domain)
-			if (!url) {
-				throw new Error(`Unable to lookup route "${routeIdentifier}"`)
-			}
-			return url
+		View.global('signedRoute', (routeIdentifier: string, params?: any, options?: any) => {
+			return Route.makeSignedUrl(routeIdentifier, params, options)
 		})
 	}
 
@@ -93,7 +80,7 @@ export default class ViewProvider {
 	 */
 	public register() {
 		this.app.container.singleton('Adonis/Core/View', () => {
-			const Env = this.app.container.use('Adonis/Core/Env')
+			const Env = this.app.container.resolveBinding('Adonis/Core/Env')
 			const { Edge } = require('edge.js')
 			const supercharged = new Supercharged()
 
@@ -129,13 +116,13 @@ export default class ViewProvider {
 		 * Register repl binding
 		 */
 		if (this.app.environment === 'repl') {
-			this.app.container.with(['Adonis/Addons/Repl'], (Repl) => {
+			this.app.container.withBindings(['Adonis/Addons/Repl'], (Repl) => {
 				const { defineReplBindings } = require('../src/Bindings/Repl')
 				defineReplBindings(this.app, Repl)
 			})
 		}
 
-		this.app.container.with(
+		this.app.container.withBindings(
 			['Adonis/Core/Route', 'Adonis/Core/View', 'Adonis/Core/HttpContext'],
 			(Route, View, HttpContext) => {
 				this.addRouteGlobal(View, Route)

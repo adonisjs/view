@@ -11,9 +11,9 @@
  * Decorate context
  */
 declare module '@ioc:Adonis/Core/HttpContext' {
-	import { ViewContract } from '@ioc:Adonis/Core/View'
+	import { ViewRendererContract } from '@ioc:Adonis/Core/View'
 	interface HttpContextContract {
-		view: ViewContract
+		view: ViewRendererContract
 	}
 }
 
