@@ -15,7 +15,7 @@
 
 <div align="center">
 
-[![circleci-image]][circleci-url] [![npm-image]][npm-url] ![][typescript-image] [![license-image]][license-url]
+[![circleci-image]][circleci-url] [![npm-image]][npm-url] ![][typescript-image] [![license-image]][license-url] [![synk-image]][synk-url]
 
 </div>
 
@@ -56,3 +56,6 @@
 
 [license-image]: https://img.shields.io/npm/l/@adonisjs/view?color=blueviolet&style=for-the-badge
 [license-url]: LICENSE.md "license"
+
+[synk-image]: https://img.shields.io/snyk/vulnerabilities/github/adonisjs/view?label=Synk%20Vulnerabilities&style=for-the-badge
+[synk-url]: https://snyk.io/test/github/adonisjs/view?targetFile=package.json "synk"
