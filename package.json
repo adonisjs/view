@@ -111,6 +111,6 @@
 	},
 	"publishConfig": {
 		"access": "public",
-		"tag": "latest"
+		"tag": "next"
 	}
 }
