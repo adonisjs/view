@@ -15,18 +15,18 @@ import { ApplicationContract } from '@ioc:Adonis/Core/Application'
  * is set to repl.
  */
 export function defineReplBindings(app: ApplicationContract, Repl: ReplContract) {
-	Repl.addMethod(
-		'loadView',
-		(repl) => {
-			repl.server.context.View = app.container.use('Adonis/Core/View')
-			repl.notify(
-				`Loaded View module. You can access it using the "${repl.colors.underline(
-					'View'
-				)}" variable`
-			)
-		},
-		{
-			description: 'Load view provider and save reference to the "View" variable',
-		}
-	)
+  Repl.addMethod(
+    'loadView',
+    (repl) => {
+      repl.server.context.View = app.container.use('Adonis/Core/View')
+      repl.notify(
+        `Loaded View module. You can access it using the "${repl.colors.underline(
+          'View'
+        )}" variable`
+      )
+    },
+    {
+      description: 'Load view provider and save reference to the "View" variable',
+    }
+  )
 }

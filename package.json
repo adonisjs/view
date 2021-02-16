@@ -17,12 +17,13 @@
 		"lint": "eslint . --ext=.ts",
 		"clean": "del build",
 		"compile": "npm run lint && npm run clean && tsc",
-		"build": "npm run compile && copyfiles instructions.md build",
+		"build": "npm run compile",
 		"commit": "git-cz",
 		"release": "np",
 		"version": "npm run build",
 		"sync-labels": "github-label-sync --labels ./node_modules/@adonisjs/mrm-preset/gh-labels.json adonisjs/view",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"prepublishOnly": "npm run build"
 	},
 	"repository": {
 		"type": "git",

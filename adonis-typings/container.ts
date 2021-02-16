@@ -8,9 +8,9 @@
  */
 
 declare module '@ioc:Adonis/Core/Application' {
-	import { ViewContract } from '@ioc:Adonis/Core/View'
+  import { ViewContract } from '@ioc:Adonis/Core/View'
 
-	interface ContainerBindings {
-		'Adonis/Core/View': ViewContract
-	}
+  interface ContainerBindings {
+    'Adonis/Core/View': ViewContract
+  }
 }

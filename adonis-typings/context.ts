@@ -11,17 +11,17 @@
  * Decorate context
  */
 declare module '@ioc:Adonis/Core/HttpContext' {
-	import { ViewRendererContract } from '@ioc:Adonis/Core/View'
-	interface HttpContextContract {
-		view: ViewRendererContract
-	}
+  import { ViewRendererContract } from '@ioc:Adonis/Core/View'
+  interface HttpContextContract {
+    view: ViewRendererContract
+  }
 }
 
 /**
  * Decorate router
  */
 declare module '@ioc:Adonis/Core/Route' {
-	interface BriskRouteContract {
-		render: (template: string, data?: any) => Exclude<this['route'], null>
-	}
+  interface BriskRouteContract {
+    render: (template: string, data?: any) => Exclude<this['route'], null>
+  }
 }
