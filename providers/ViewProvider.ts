@@ -19,7 +19,6 @@ import { HttpContextConstructorContract } from '@ioc:Adonis/Core/HttpContext'
  */
 export default class ViewProvider {
   constructor(protected app: ApplicationContract) {}
-  public static needsApplication = true
 
   /**
    * Add globals for resolving routes
