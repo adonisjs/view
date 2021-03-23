@@ -89,6 +89,14 @@ test.group('View Provider', (group) => {
     )
   })
 
+  test('register view global for the assets manager', async (assert) => {
+    const app = await setup('web')
+    assert.property(app.container.use('Adonis/Core/View').GLOBALS, 'asset')
+    assert.property(app.container.use('Adonis/Core/View').GLOBALS, 'assetsManager')
+    assert.property(app.container.use('Adonis/Core/View').tags, 'entryPointStyles')
+    assert.property(app.container.use('Adonis/Core/View').tags, 'entryPointScripts')
+  })
+
   test('do not register repl binding when not in repl environment', async (assert) => {
     const app = await setup('web')
     assert.notProperty(app.container.use('Adonis/Addons/Repl')['customMethods'], 'loadView')

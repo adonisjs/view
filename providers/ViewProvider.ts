@@ -7,11 +7,10 @@
  * file that was distributed with this source code.
  */
 
-import { EdgeContract } from 'edge.js'
-import { Supercharged } from 'edge-supercharged'
 import { ViewContract } from '@ioc:Adonis/Core/View'
 import { RouterContract } from '@ioc:Adonis/Core/Route'
 import { ApplicationContract } from '@ioc:Adonis/Core/Application'
+import { AssetsManagerContract } from '@ioc:Adonis/Core/AssetsManager'
 import { HttpContextConstructorContract } from '@ioc:Adonis/Core/HttpContext'
 
 /**
@@ -23,7 +22,7 @@ export default class ViewProvider {
   /**
    * Add globals for resolving routes
    */
-  private addRouteGlobal(View: EdgeContract, Route: RouterContract) {
+  private addRouteGlobal(View: ViewContract, Route: RouterContract) {
     /**
      * Adding `route` global
      */
@@ -42,8 +41,16 @@ export default class ViewProvider {
   /**
    * Share application reference
    */
-  private addAppGlobal(View: EdgeContract, Application: ApplicationContract) {
+  private addAppGlobal(View: ViewContract, Application: ApplicationContract) {
     View.global('app', Application)
+  }
+
+  /**
+   * Copy globals exposed by Edge
+   */
+  private copyEdgeGlobals(View: ViewContract) {
+    const { GLOBALS } = require('edge.js')
+    Object.keys(GLOBALS).forEach((key) => View.global(key, GLOBALS[key]))
   }
 
   /**
@@ -68,10 +75,46 @@ export default class ViewProvider {
     HttpContext.getter(
       'view',
       function () {
-        return View.share({ request: this.request, route: this.route })
+        return View.share({ request: this.request })
       },
       true
     )
+  }
+
+  /**
+   * Decide whether or not to cache views. If a user opts to remove
+   * the valdation, then `CACHE_VIEWS` will be a string and not
+   * a boolean, so we need to handle that case
+   */
+  private shouldCacheViews(): boolean {
+    let cacheViews = this.app.container.resolveBinding('Adonis/Core/Env').get('CACHE_VIEWS')
+    if (typeof cacheViews === 'string') {
+      cacheViews = cacheViews === 'true'
+    }
+
+    return cacheViews
+  }
+
+  /**
+   * Register repl binding
+   */
+  private defineReplBindings() {
+    if (this.app.environment !== 'repl') {
+      return
+    }
+
+    this.app.container.withBindings(['Adonis/Addons/Repl'], (Repl) => {
+      const { defineReplBindings } = require('../src/Bindings/Repl')
+      defineReplBindings(this.app, Repl)
+    })
+  }
+
+  /**
+   * Define assets manager bindings
+   */
+  private defineAssetsManagerBindings(View: ViewContract, AssetsManager: AssetsManagerContract) {
+    const { defineAssetsManagerBindings } = require('../src/Bindings/AssetsManager')
+    defineAssetsManagerBindings(View, AssetsManager)
   }
 
   /**
@@ -79,21 +122,15 @@ export default class ViewProvider {
    */
   public register() {
     this.app.container.singleton('Adonis/Core/View', () => {
-      const Env = this.app.container.resolveBinding('Adonis/Core/Env')
       const { Edge } = require('edge.js')
-      const supercharged = new Supercharged()
+      const { Supercharged } = require('edge-supercharged')
+
+      const cacheViews = this.shouldCacheViews()
+      const edge = new Edge({ cache: cacheViews })
 
       /**
-       * Decide whether or not to cache views. If a user opts to remove
-       * the valdation, then `CACHE_VIEWS` will be a string and not
-       * a boolean, so we need to handle that case
+       * Mount the views directory
        */
-      let cacheViews = Env.get('CACHE_VIEWS')
-      if (typeof cacheViews === 'string') {
-        cacheViews = cacheViews === 'true'
-      }
-
-      const edge = (new Edge({ cache: cacheViews }) as unknown) as ViewContract
       edge.mount(this.app.viewsPath())
 
       /**
@@ -101,7 +138,7 @@ export default class ViewProvider {
        * edge supercharged can re-scan components on each
        * render call
        */
-      edge.use(supercharged.wire, { recurring: !cacheViews })
+      edge.use(new Supercharged().wire, { recurring: !cacheViews })
 
       return edge
     })
@@ -111,28 +148,32 @@ export default class ViewProvider {
    * Setup view on boot
    */
   public boot() {
+    const View = this.app.container.resolveBinding('Adonis/Core/View')
+    const Route = this.app.container.resolveBinding('Adonis/Core/Route')
+    const HttpContext = this.app.container.resolveBinding('Adonis/Core/HttpContext')
+    const AssetsManager = this.app.container.resolveBinding('Adonis/Core/AssetsManager')
+
     /**
-     * Register repl binding
+     * Repl and Assets manager bindings
      */
-    if (this.app.environment === 'repl') {
-      this.app.container.withBindings(['Adonis/Addons/Repl'], (Repl) => {
-        const { defineReplBindings } = require('../src/Bindings/Repl')
-        defineReplBindings(this.app, Repl)
-      })
-    }
+    this.defineReplBindings()
+    this.defineAssetsManagerBindings(View, AssetsManager)
 
-    this.app.container.withBindings(
-      ['Adonis/Core/Route', 'Adonis/Core/View', 'Adonis/Core/HttpContext'],
-      (Route, View, HttpContext) => {
-        this.addRouteGlobal(View, Route)
-        this.addAppGlobal(View, this.app)
+    /**
+     * Registering globals
+     */
+    this.addRouteGlobal(View, Route)
+    this.addAppGlobal(View, this.app)
+    this.copyEdgeGlobals(View)
 
-        const { GLOBALS } = require('edge.js')
-        Object.keys(GLOBALS).forEach((key) => View.global(key, GLOBALS[key]))
+    /**
+     * Registering the brisk route
+     */
+    this.registerBriskRoute(Route)
 
-        this.registerBriskRoute(Route)
-        this.registerHTTPContextGetter(HttpContext, View)
-      }
-    )
+    /**
+     * Registering isolated view renderer with the HTTP context
+     */
+    this.registerHTTPContextGetter(HttpContext, View)
   }
 }
