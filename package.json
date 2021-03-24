@@ -90,6 +90,7 @@
 		"anyBranch": false
 	},
 	"dependencies": {
+		"edge-error": "^2.0.1",
 		"edge-supercharged": "^2.0.2",
 		"edge.js": "^4.0.4"
 	},
