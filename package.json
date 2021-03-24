@@ -41,7 +41,7 @@
 	},
 	"homepage": "https://github.com/adonisjs/view#readme",
 	"devDependencies": {
-		"@adonisjs/core": "^5.1.0",
+		"@adonisjs/core": "^5.1.1",
 		"@adonisjs/mrm-preset": "^3.0.0",
 		"@adonisjs/repl": "^3.0.0",
 		"@adonisjs/require-ts": "^2.0.3",
