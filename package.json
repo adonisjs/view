@@ -90,8 +90,8 @@
 		"anyBranch": false
 	},
 	"dependencies": {
-		"edge-supercharged": "^2.0.1",
-		"edge.js": "^4.0.2"
+		"edge-supercharged": "^2.0.2",
+		"edge.js": "^4.0.3"
 	},
 	"adonisjs": {
 		"types": "@adonisjs/view",
