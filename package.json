@@ -91,7 +91,7 @@
 	},
 	"dependencies": {
 		"edge-supercharged": "^2.0.2",
-		"edge.js": "^4.0.3"
+		"edge.js": "^4.0.4"
 	},
 	"adonisjs": {
 		"types": "@adonisjs/view",
