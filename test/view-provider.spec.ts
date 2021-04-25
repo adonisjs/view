@@ -65,8 +65,8 @@ test.group('View Provider', (group) => {
     view.registerTemplate('dummy', { template: "{{ route('/', {}, 'root') }}" })
     view.registerTemplate('signedDummy', { template: "{{ signedRoute('/signed', {}, 'root') }}" })
 
-    assert.equal(view.render('dummy'), '/')
-    assert.match(view.render('signedDummy'), /\/signed\?signature=/)
+    assert.equal(await view.render('dummy'), '/')
+    assert.match(await view.render('signedDummy'), /\/signed\?signature=/)
   })
 
   test('add brisk route macro "render"', async (assert) => {
