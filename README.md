@@ -31,7 +31,7 @@
       Website
     </a>
     <span> | </span>
-    <a href="https://adonisjs.com/guides/views/introduction">
+    <a href="https://docs.adonisjs.com/guides/views/introduction">
       Guides
     </a>
     <span> | </span>
