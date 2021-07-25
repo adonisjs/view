@@ -14,13 +14,14 @@ import { Filesystem } from '@poppinss/dev-utils'
 import { Application } from '@adonisjs/core/build/standalone'
 
 const fs = new Filesystem(join(__dirname, 'app'))
+const APP_KEY = Math.random().toFixed(36).substring(2, 38)
 
 export async function setup(environment: 'web' | 'repl') {
   await fs.add('.env', '')
   await fs.add(
     'config/app.ts',
     `
-		export const appKey = '${Math.random().toFixed(36).substring(2, 38)}',
+		export const appKey = '${APP_KEY}',
 		export const http = {
 			cookie: {},
 			trustProxy: () => true,
@@ -52,6 +53,18 @@ test.group('View Provider', (group) => {
       app.container.use('Adonis/Core/View').loader.mounted.default,
       join(fs.basePath, 'resources/views')
     )
+  })
+
+  test('register config and env globals', async (assert) => {
+    const app = await setup('web')
+    process.env.NODE_ENV = 'development'
+
+    const output = await app.container
+      .use('Adonis/Core/View')
+      .renderRaw(`{{ config('app.appKey') }} {{ env('NODE_ENV') }}`)
+
+    assert.equal(output, `${APP_KEY} ${process.env.NODE_ENV}`)
+    delete process.env.NODE_ENV
   })
 
   test('share route and signedRoute methods with view', async (assert) => {

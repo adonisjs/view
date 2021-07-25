@@ -39,10 +39,16 @@ export default class ViewProvider {
   }
 
   /**
-   * Share application reference
+   * Share application reference, a config and env variable with the
+   * templates.
    */
-  private addAppGlobal(View: ViewContract, Application: ApplicationContract) {
+  private addGlobals(View: ViewContract, Application: ApplicationContract) {
+    const Config = Application.container.resolveBinding('Adonis/Core/Config')
+    const Env = Application.container.resolveBinding('Adonis/Core/Env')
+
     View.global('app', Application)
+    View.global('config', (key: string, defaultValue?: any) => Config.get(key, defaultValue))
+    View.global('env', (key: string, defaultValue?: any) => Env.get(key, defaultValue))
   }
 
   /**
@@ -163,7 +169,7 @@ export default class ViewProvider {
      * Registering globals
      */
     this.addRouteGlobal(View, Route)
-    this.addAppGlobal(View, this.app)
+    this.addGlobals(View, this.app)
     this.copyEdgeGlobals(View)
 
     /**
