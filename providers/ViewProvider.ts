@@ -7,11 +7,12 @@
  * file that was distributed with this source code.
  */
 
-import { ViewContract } from '@ioc:Adonis/Core/View'
-import { RouterContract } from '@ioc:Adonis/Core/Route'
-import { ApplicationContract } from '@ioc:Adonis/Core/Application'
-import { AssetsManagerContract } from '@ioc:Adonis/Core/AssetsManager'
-import { HttpContextConstructorContract } from '@ioc:Adonis/Core/HttpContext'
+import type { DisksList } from '@ioc:Adonis/Core/Drive'
+import type { ViewContract } from '@ioc:Adonis/Core/View'
+import type { RouterContract } from '@ioc:Adonis/Core/Route'
+import type { ApplicationContract } from '@ioc:Adonis/Core/Application'
+import type { AssetsManagerContract } from '@ioc:Adonis/Core/AssetsManager'
+import type { HttpContextConstructorContract } from '@ioc:Adonis/Core/HttpContext'
 
 /**
  * View provider to register view to the application
@@ -45,10 +46,19 @@ export default class ViewProvider {
   private addGlobals(View: ViewContract, Application: ApplicationContract) {
     const Config = Application.container.resolveBinding('Adonis/Core/Config')
     const Env = Application.container.resolveBinding('Adonis/Core/Env')
+    const Drive = Application.container.resolveBinding('Adonis/Core/Drive')
 
     View.global('app', Application)
     View.global('config', (key: string, defaultValue?: any) => Config.get(key, defaultValue))
     View.global('env', (key: string, defaultValue?: any) => Env.get(key, defaultValue))
+
+    View.global('driveUrl', (location: string, disk?: keyof DisksList) => {
+      return disk ? Drive.use(disk).getUrl(location) : Drive.getUrl(location)
+    })
+
+    View.global('driveSignedUrl', (location: string, disk?: keyof DisksList) => {
+      return disk ? Drive.use(disk).getSignedUrl(location) : Drive.getSignedUrl(location)
+    })
   }
 
   /**

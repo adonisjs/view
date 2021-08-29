@@ -10,35 +10,8 @@
 import test from 'japa'
 import { join } from 'path'
 import { Edge } from 'edge.js'
-import { Filesystem } from '@poppinss/dev-utils'
-import { Application } from '@adonisjs/core/build/standalone'
 
-const fs = new Filesystem(join(__dirname, 'app'))
-const APP_KEY = Math.random().toFixed(36).substring(2, 38)
-
-export async function setup(environment: 'web' | 'repl') {
-  await fs.add('.env', '')
-  await fs.add(
-    'config/app.ts',
-    `
-		export const appKey = '${APP_KEY}',
-		export const http = {
-			cookie: {},
-			trustProxy: () => true,
-		}
-	`
-  )
-
-  const app = new Application(fs.basePath, environment, {
-    providers: ['@adonisjs/core', '@adonisjs/repl', '../../providers/ViewProvider'],
-  })
-
-  await app.setup()
-  await app.registerProviders()
-  await app.bootProviders()
-
-  return app
-}
+import { setup, fs, APP_KEY } from '../test-helpers'
 
 test.group('View Provider', (group) => {
   group.afterEach(async () => {
@@ -113,5 +86,17 @@ test.group('View Provider', (group) => {
   test('do not register repl binding when not in repl environment', async (assert) => {
     const app = await setup('web')
     assert.notProperty(app.container.use('Adonis/Addons/Repl')['customMethods'], 'loadView')
+  })
+
+  test('register driveUrl and driveSignedUrl globals', async (assert) => {
+    const app = await setup('web', true)
+
+    app.container.use('Adonis/Core/Route').commit()
+
+    const output = await app.container
+      .use('Adonis/Core/View')
+      .renderRaw(`{{ await driveUrl('foo.txt') }}`)
+
+    assert.equal(output.trim(), '/uploads/foo.txt')
   })
 })
