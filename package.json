@@ -41,13 +41,13 @@
 	},
 	"homepage": "https://github.com/adonisjs/view#readme",
 	"devDependencies": {
-		"@adonisjs/core": "^5.3.0",
+		"@adonisjs/core": "^5.3.3",
 		"@adonisjs/mrm-preset": "^4.1.2",
-		"@adonisjs/repl": "^3.1.5",
-		"@adonisjs/require-ts": "^2.0.7",
-		"@adonisjs/sink": "^5.1.5",
+		"@adonisjs/repl": "^3.1.6",
+		"@adonisjs/require-ts": "^2.0.8",
+		"@adonisjs/sink": "^5.1.6",
 		"@poppinss/dev-utils": "^1.1.5",
-		"@types/node": "^16.7.5",
+		"@types/node": "^16.9.0",
 		"copyfiles": "^2.4.1",
 		"del-cli": "^4.0.1",
 		"eslint": "^7.31.0",
@@ -88,9 +88,9 @@
 		"anyBranch": false
 	},
 	"dependencies": {
-		"edge-error": "^2.0.5",
+		"edge-error": "^2.0.6",
 		"edge-supercharged": "^3.1.1",
-		"edge.js": "^5.3.1"
+		"edge.js": "^5.3.2"
 	},
 	"adonisjs": {
 		"types": "@adonisjs/view",
