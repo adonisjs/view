@@ -7,18 +7,18 @@
  * file that was distributed with this source code.
  */
 
-import test from 'japa'
+import { test } from '@japa/runner'
 import { join } from 'path'
 import { Edge } from 'edge.js'
 
 import { setup, fs, APP_KEY } from '../test-helpers'
 
 test.group('View Provider', (group) => {
-  group.afterEach(async () => {
+  group.each.teardown(async () => {
     await fs.cleanup()
   })
 
-  test('register view provider', async (assert) => {
+  test('register view provider', async ({ assert }) => {
     const app = await setup('web')
 
     assert.instanceOf(app.container.use('Adonis/Core/View'), Edge)
@@ -28,7 +28,7 @@ test.group('View Provider', (group) => {
     )
   })
 
-  test('register config and env globals', async (assert) => {
+  test('register config and env globals', async ({ assert }) => {
     const app = await setup('web')
     process.env.NODE_ENV = 'development'
 
@@ -40,7 +40,7 @@ test.group('View Provider', (group) => {
     delete process.env.NODE_ENV
   })
 
-  test('share route and signedRoute methods with view', async (assert) => {
+  test('share route and signedRoute methods with view', async ({ assert }) => {
     const app = await setup('web')
 
     app.container.use('Adonis/Core/Route').get('/', async () => {})
@@ -55,18 +55,18 @@ test.group('View Provider', (group) => {
     assert.match(await view.render('signedDummy'), /\/signed\?signature=/)
   })
 
-  test('add brisk route macro "render"', async (assert) => {
+  test('add brisk route macro "render"', async ({ assert }) => {
     const app = await setup('web')
     assert.isFunction(app.container.use('Adonis/Core/Route').on('/').render)
   })
 
-  test('ensure GLOBALS object exists on the View binding', async (assert) => {
+  test('ensure GLOBALS object exists on the View binding', async ({ assert }) => {
     const app = await setup('web')
     assert.isDefined(app.container.use('Adonis/Core/View').GLOBALS)
     assert.property(app.container.use('Adonis/Core/View').GLOBALS, 'route')
   })
 
-  test('register repl binding', async (assert) => {
+  test('register repl binding', async ({ assert }) => {
     const app = await setup('repl')
 
     assert.property(app.container.use('Adonis/Addons/Repl')['customMethods'], 'loadView')
@@ -75,7 +75,7 @@ test.group('View Provider', (group) => {
     )
   })
 
-  test('register view global for the assets manager', async (assert) => {
+  test('register view global for the assets manager', async ({ assert }) => {
     const app = await setup('web')
     assert.property(app.container.use('Adonis/Core/View').GLOBALS, 'asset')
     assert.property(app.container.use('Adonis/Core/View').GLOBALS, 'assetsManager')
@@ -83,12 +83,12 @@ test.group('View Provider', (group) => {
     assert.property(app.container.use('Adonis/Core/View').tags, 'entryPointScripts')
   })
 
-  test('do not register repl binding when not in repl environment', async (assert) => {
+  test('do not register repl binding when not in repl environment', async ({ assert }) => {
     const app = await setup('web')
     assert.notProperty(app.container.use('Adonis/Addons/Repl')['customMethods'], 'loadView')
   })
 
-  test('register driveUrl and driveSignedUrl globals', async (assert) => {
+  test('register driveUrl and driveSignedUrl globals', async ({ assert }) => {
     const app = await setup('web', true)
 
     app.container.use('Adonis/Core/Route').commit()
