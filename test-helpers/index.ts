@@ -14,7 +14,11 @@ import { Application } from '@adonisjs/core/build/standalone'
 export const fs = new Filesystem(join(__dirname, 'app'))
 export const APP_KEY = Math.random().toFixed(36).substring(2, 38)
 
-export async function setup(environment: 'web' | 'repl', setupDriveConfig: boolean = false) {
+export async function setup(
+  environment: 'web' | 'repl',
+  setupDriveConfig: boolean = false,
+  assetsDriver: 'vite' | 'encore' = 'encore'
+) {
   await fs.add('.env', '')
   await fs.add(
     'config/app.ts',
@@ -23,6 +27,10 @@ export async function setup(environment: 'web' | 'repl', setupDriveConfig: boole
     export const http = {
       cookie: {},
       trustProxy: () => true,
+    }
+
+    export const assets = {
+      driver: '${assetsDriver}',
     }
   `
   )
@@ -46,6 +54,7 @@ export async function setup(environment: 'web' | 'repl', setupDriveConfig: boole
 
   const app = new Application(fs.basePath, environment, {
     providers: ['@adonisjs/core', '@adonisjs/repl', '../../providers/ViewProvider'],
+    assetsDriver,
   })
 
   await app.setup()

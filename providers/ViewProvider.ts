@@ -13,6 +13,7 @@ import type { RouterContract } from '@ioc:Adonis/Core/Route'
 import type { ApplicationContract } from '@ioc:Adonis/Core/Application'
 import type { AssetsManagerContract } from '@ioc:Adonis/Core/AssetsManager'
 import type { HttpContextConstructorContract } from '@ioc:Adonis/Core/HttpContext'
+import { defineViteDriverBindings } from '../src/Bindings/Vite'
 
 /**
  * View provider to register view to the application
@@ -131,6 +132,10 @@ export default class ViewProvider {
   private defineAssetsManagerBindings(View: ViewContract, AssetsManager: AssetsManagerContract) {
     const { defineAssetsManagerBindings } = require('../src/Bindings/AssetsManager')
     defineAssetsManagerBindings(View, AssetsManager)
+
+    if (AssetsManager.name === 'vite') {
+      defineViteDriverBindings(View)
+    }
   }
 
   /**

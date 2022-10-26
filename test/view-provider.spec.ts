@@ -83,6 +83,20 @@ test.group('View Provider', (group) => {
     assert.property(app.container.use('Adonis/Core/View').tags, 'entryPointScripts')
   })
 
+  test('register view specific vite global only if enabled', async ({ assert }) => {
+    const app = await setup('web', false, 'vite')
+
+    assert.property(app.container.use('Adonis/Core/View').tags, 'vite')
+    assert.property(app.container.use('Adonis/Core/View').tags, 'viteReactRefresh')
+  })
+
+  test('should not register vite globals if not enabled', async ({ assert }) => {
+    const app = await setup('web', false, 'encore')
+
+    assert.isUndefined(app.container.use('Adonis/Core/View').tags.vite)
+    assert.isUndefined(app.container.use('Adonis/Core/View').tags.viteReactRefresh)
+  })
+
   test('do not register repl binding when not in repl environment', async ({ assert }) => {
     const app = await setup('web')
     assert.notProperty(app.container.use('Adonis/Addons/Repl')['customMethods'], 'loadView')
