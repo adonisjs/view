@@ -7,13 +7,13 @@
  * file that was distributed with this source code.
  */
 
+import { defineViteDriverBindings } from '../src/Bindings/Vite'
 import type { DisksList } from '@ioc:Adonis/Core/Drive'
 import type { ViewContract } from '@ioc:Adonis/Core/View'
 import type { RouterContract } from '@ioc:Adonis/Core/Route'
 import type { ApplicationContract } from '@ioc:Adonis/Core/Application'
 import type { AssetsManagerContract } from '@ioc:Adonis/Core/AssetsManager'
 import type { HttpContextConstructorContract } from '@ioc:Adonis/Core/HttpContext'
-import { defineViteDriverBindings } from '../src/Bindings/Vite'
 
 /**
  * View provider to register view to the application

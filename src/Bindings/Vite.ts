@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import { ViewContract } from '@ioc:Adonis/Core/View'
+import type { ViewContract } from '@ioc:Adonis/Core/View'
 
 export function defineViteDriverBindings(View: ViewContract) {
   /**
