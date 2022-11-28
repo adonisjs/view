@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 
+import { defineViteDriverBindings } from '../src/Bindings/Vite'
 import type { DisksList } from '@ioc:Adonis/Core/Drive'
 import type { ViewContract } from '@ioc:Adonis/Core/View'
 import type { RouterContract } from '@ioc:Adonis/Core/Route'
@@ -131,6 +132,10 @@ export default class ViewProvider {
   private defineAssetsManagerBindings(View: ViewContract, AssetsManager: AssetsManagerContract) {
     const { defineAssetsManagerBindings } = require('../src/Bindings/AssetsManager')
     defineAssetsManagerBindings(View, AssetsManager)
+
+    if (AssetsManager.name === 'vite') {
+      defineViteDriverBindings(View)
+    }
   }
 
   /**
