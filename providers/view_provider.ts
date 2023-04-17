@@ -20,7 +20,7 @@ export default class ViewProvider {
   /**
    * Add globals for resolving routes
    */
-  private addRouteGlobal(view: ViewContract, router: HttpRouterService) {
+  #addRouteGlobal(view: ViewContract, router: HttpRouterService) {
     /**
      * Adding `route` global
      */
@@ -40,7 +40,7 @@ export default class ViewProvider {
    * Share application reference, a config and env variable with the
    * templates.
    */
-  private async addGlobals(view: ViewContract) {
+  async #addGlobals(view: ViewContract) {
     const config = await this.app.container.make('config')
 
     view.global('app', this.app)
@@ -50,7 +50,7 @@ export default class ViewProvider {
   /**
    * Copy globals exposed by Edge
    */
-  private async copyEdgeGlobals(view: ViewContract) {
+  async #copyEdgeGlobals(view: ViewContract) {
     const { GLOBALS } = (await import('edge.js')) as { GLOBALS: { [key: string]: any } }
     Object.keys(GLOBALS).forEach((key) => view.global(key, GLOBALS[key]))
   }
@@ -58,7 +58,7 @@ export default class ViewProvider {
   /**
    * Registering the brisk route to render view directly from the route.
    */
-  private registerBriskRoute() {
+  #registerBriskRoute() {
     BriskRoute.macro('render', function renderView(this: BriskRoute, template: string, data?: any) {
       return this.setHandler(({ view }: { view: ViewContract }) => {
         return view.render(template, data)
@@ -70,7 +70,7 @@ export default class ViewProvider {
    * Registering the http context getter to access an isolated
    * view instance with the request and route.
    */
-  private registerHTTPContextGetter(view: ViewContract) {
+  #registerHTTPContextGetter(view: ViewContract) {
     // Check if getter is already defined
     if (Object.getOwnPropertyDescriptor(HttpContext.prototype, 'view')) {
       return
@@ -90,7 +90,7 @@ export default class ViewProvider {
    * the valdation, then `CACHE_VIEWS` will be a string and not
    * a boolean, so we need to handle that case
    */
-  private async shouldCacheViews(): Promise<boolean> {
+  async #shouldCacheViews(): Promise<boolean> {
     const config = await this.app.container.make('config')
     const cacheViews = config.get('views.cache', true)
 
@@ -105,7 +105,7 @@ export default class ViewProvider {
       const { Edge } = await import('edge.js')
       const { Supercharged } = await import('edge-supercharged')
 
-      const cacheViews = await this.shouldCacheViews()
+      const cacheViews = await this.#shouldCacheViews()
 
       const edge = new Edge({ cache: cacheViews })
 
@@ -135,18 +135,18 @@ export default class ViewProvider {
     /**
      * Registering globals
      */
-    this.addRouteGlobal(view, router)
-    this.addGlobals(view)
-    this.copyEdgeGlobals(view)
+    this.#addRouteGlobal(view, router)
+    this.#addGlobals(view)
+    this.#copyEdgeGlobals(view)
 
     /**
      * Registering the brisk route
      */
-    this.registerBriskRoute()
+    this.#registerBriskRoute()
 
     /**
      * Registering isolated view renderer with the HTTP context
      */
-    this.registerHTTPContextGetter(view)
+    this.#registerHTTPContextGetter(view)
   }
 }
