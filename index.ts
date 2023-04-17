@@ -7,5 +7,4 @@
  * file that was distributed with this source code.
  */
 
-export { default as view } from './services/view.js'
 export * from './types/index.js'
