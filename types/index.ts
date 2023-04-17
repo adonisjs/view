@@ -19,5 +19,14 @@ export type {
   TemplateConstructorContract,
 } from 'edge.js'
 
+/**
+ * Config accepted by the view provider
+ */
+export interface ViewConfig {
+  cache: {
+    enabled: boolean
+  }
+}
+
 export * from './container.js'
 export * from './context.js'
