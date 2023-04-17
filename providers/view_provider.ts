@@ -71,11 +71,6 @@ export default class ViewProvider {
    * view instance with the request and route.
    */
   #registerHTTPContextGetter(view: ViewContract) {
-    // Check if getter is already defined
-    if (Object.getOwnPropertyDescriptor(HttpContext.prototype, 'view')) {
-      return
-    }
-
     HttpContext.getter(
       'view',
       function (this: HttpContext) {
