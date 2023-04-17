@@ -86,15 +86,13 @@ export default class ViewProvider {
   }
 
   /**
-   * Decide whether or not to cache views. If a user opts to remove
-   * the valdation, then `CACHE_VIEWS` will be a string and not
-   * a boolean, so we need to handle that case
+   * Decide whether or not to cache views.
    */
   async #shouldCacheViews(): Promise<boolean> {
     const config = await this.app.container.make('config')
     const cacheViews = config.get('views.cache', true)
 
-    return typeof cacheViews === 'string' ? cacheViews === 'true' : (cacheViews as boolean)
+    return cacheViews as boolean
   }
 
   /**
