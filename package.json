@@ -80,7 +80,7 @@
 		"typescript": "^5.0.4"
 	},
 	"peerDependencies": {
-		"@adonisjs/core": "^6.0.0"
+		"@adonisjs/core": "^6.1.5-2"
 	},
 	"dependencies": {
 		"edge-error": "^3.0.0",
