@@ -7,5 +7,6 @@
  * file that was distributed with this source code.
  */
 
-import './src/types/extended_types.js'
+import './src/types/extended.js'
+export { configure } from './configure.js'
 export { defineConfig } from './src/define_config.js'

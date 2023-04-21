@@ -5,19 +5,23 @@
 	"main": "build/index.js",
 	"type": "module",
 	"files": [
-    "index.ts",
-    "src",
-    "services",
-    "providers",
-    "build/index.js",
-    "build/index.d.ts",
-    "build/index.d.ts.map",
-    "build/src",
-    "build/services",
+		"index.ts",
+    "configure.ts",
+		"src",
+		"services",
+		"providers",
+    "build/configure.js",
+		"build/configure.d.ts",
+		"build/configure.d.ts.map",
+		"build/index.js",
+		"build/index.d.ts",
+		"build/index.d.ts.map",
+		"build/src",
+		"build/services",
 		"build/providers"
 	],
 	"exports": {
-    ".": "./build/index.js",
+		".": "./build/index.js",
 		"./services/main": "./build/services/view.js",
 		"./providers/views_provider": "./build/providers/views_provider.js",
 		"./types": "./build/src/types.js"
@@ -54,7 +58,7 @@
 	},
 	"homepage": "https://github.com/adonisjs/view#readme",
 	"devDependencies": {
-		"@adonisjs/core": "^6.1.5-3",
+		"@adonisjs/core": "^6.1.5-4",
 		"@commitlint/cli": "^17.6.1",
 		"@commitlint/config-conventional": "^17.6.1",
 		"@japa/assert": "^1.4.1",
@@ -79,28 +83,12 @@
 		"typescript": "^5.0.4"
 	},
 	"peerDependencies": {
-		"@adonisjs/core": "^6.1.5-2"
+		"@adonisjs/core": "^6.1.5-4"
 	},
 	"dependencies": {
 		"edge-error": "^3.0.0",
 		"edge-supercharged": "^3.1.1",
 		"edge.js": "^5.5.1"
-	},
-	"adonisjs": {
-		"types": "@adonisjs/view",
-		"instructionsMd": "./build/instructions.md",
-		"providers": [
-			"@adonisjs/view"
-		],
-		"env": {
-			"CACHE_VIEWS": false
-		},
-		"metaFiles": [
-			{
-				"pattern": "resources/views/**/*.edge",
-				"reloadServer": false
-			}
-		]
 	},
 	"eslintConfig": {
 		"extends": [

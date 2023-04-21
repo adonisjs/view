@@ -1,61 +1,36 @@
-<div align="center">
-  <img src="https://res.cloudinary.com/adonisjs/image/upload/q_100/v1558612869/adonis-readme_zscycu.jpg" width="600px">
-</div>
+# @adonisjs/view
 
 <br />
 
-<div align="center">
-  <h3>AdonisJS Template Engine</h3>
-  <p>
-    This repo holds the template engine (Edge) used by AdonisJS.
-  </p>
-</div>
+[![gh-workflow-image]][gh-workflow-url] [![npm-image]][npm-url] ![][typescript-image] [![license-image]][license-url] [![snyk-image]][snyk-url]
 
-<br />
+## Introduction
+Template engine layer for AdonisJS. Built on top of [Edge.js](https://github.com/edge-js/edge)
 
-<div align="center">
+## Official Documentation
+The documentation is available on the [AdonisJS website](https://docs.adonisjs.com/guides/templating)
 
-[![gh-workflow-image]][gh-workflow-url] [![npm-image]][npm-url] ![][typescript-image] [![license-image]][license-url] [![synk-image]][synk-url]
+## Contributing
+One of the primary goals of AdonisJS is to have a vibrant community of users and contributors who believes in the principles of the framework.
 
-</div>
+We encourage you to read the [contribution guide](https://github.com/adonisjs/.github/blob/main/docs/CONTRIBUTING.md) before contributing to the framework.
 
-<div align="center">
+## Code of Conduct
+In order to ensure that the AdonisJS community is welcoming to all, please review and abide by the [Code of Conduct](https://github.com/adonisjs/.github/blob/main/docs/CODE_OF_CONDUCT.md).
 
-  ![](./benchmarks.png)
+## License
+AdonisJS view is open-sourced software licensed under the [MIT license](LICENSE.md).
 
-</div>
-
-<div align="center">
-  <h3>
-    <a href="https://adonisjs.com">
-      Website
-    </a>
-    <span> | </span>
-    <a href="https://docs.adonisjs.com/guides/views/introduction">
-      Guides
-    </a>
-    <span> | </span>
-    <a href="CONTRIBUTING.md">
-      Contributing
-    </a>
-  </h3>
-</div>
-
-<div align="center">
-  <sub>Built with ❤︎ by <a href="https://github.com/thetutlage">Harminder Virk</a>
-</div>
-
-[gh-workflow-image]: https://img.shields.io/github/workflow/status/adonisjs/view/test?style=for-the-badge
+[gh-workflow-image]: https://img.shields.io/github/actions/workflow/status/adonisjs/view/test.yml?style=for-the-badge
 [gh-workflow-url]: https://github.com/adonisjs/view/actions/workflows/test.yml "Github action"
 
-[typescript-image]: https://img.shields.io/badge/Typescript-294E80.svg?style=for-the-badge&logo=typescript
-[typescript-url]:  "typescript"
-
 [npm-image]: https://img.shields.io/npm/v/@adonisjs/view/latest.svg?style=for-the-badge&logo=npm
-[npm-url]: https://npmjs.org/package/@adonisjs/view/v/latest "npm"
+[npm-url]: https://www.npmjs.com/package/@adonisjs/view/v/latest "npm"
 
-[license-image]: https://img.shields.io/npm/l/@adonisjs/view?color=blueviolet&style=for-the-badge
-[license-url]: LICENSE.md "license"
+[typescript-image]: https://img.shields.io/badge/Typescript-294E80.svg?style=for-the-badge&logo=typescript
 
-[synk-image]: https://img.shields.io/snyk/vulnerabilities/github/adonisjs/view?label=Synk%20Vulnerabilities&style=for-the-badge
-[synk-url]: https://snyk.io/test/github/adonisjs/view?targetFile=package.json "synk"
+[license-url]: LICENSE.md
+[license-image]: https://img.shields.io/github/license/adonisjs/view?style=for-the-badge
+
+[snyk-image]: https://img.shields.io/snyk/vulnerabilities/github/adonisjs/view?label=Snyk%20Vulnerabilities&style=for-the-badge
+[snyk-url]: https://snyk.io/test/github/adonisjs/view?targetFile=package.json "snyk"
