@@ -25,7 +25,7 @@ export async function setupApp(
   const ignitor = new IgnitorFactory()
     .merge({
       rcFileContents: {
-        providers: ['../../providers/view_provider.js'],
+        providers: ['../../providers/views_provider.js'],
       },
     })
     .withCoreConfig()

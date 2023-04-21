@@ -8,7 +8,7 @@
  */
 
 import app from '@adonisjs/core/services/app'
-import { ViewContract } from '../types/index.js'
+import { ViewContract } from '../src/types/main.js'
 
 let view: ViewContract
 
