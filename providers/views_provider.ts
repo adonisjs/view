@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-import { ApplicationService, HttpRouterService } from '@adonisjs/core/types'
-import { ViewContract } from '../types/index.js'
 import { BriskRoute, HttpContext } from '@adonisjs/core/http'
+import type { ApplicationService, HttpRouterService } from '@adonisjs/core/types'
+import { ViewContract } from '../src/types/main.js'
 
 /**
  * View provider to register view to the application
@@ -51,8 +51,10 @@ export default class ViewProvider {
    * Copy globals exposed by Edge
    */
   async #copyEdgeGlobals(view: ViewContract) {
-    const { GLOBALS } = (await import('edge.js')) as { GLOBALS: { [key: string]: any } }
-    Object.keys(GLOBALS).forEach((key) => view.global(key, GLOBALS[key]))
+    const edge = await import('edge.js')
+    Object.keys(edge.GLOBALS).forEach((key) => {
+      view.global(key, edge.GLOBALS[key as keyof typeof edge.GLOBALS])
+    })
   }
 
   /**
@@ -60,7 +62,7 @@ export default class ViewProvider {
    */
   #registerBriskRoute() {
     BriskRoute.macro('render', function renderView(this: BriskRoute, template: string, data?: any) {
-      return this.setHandler(({ view }: { view: ViewContract }) => {
+      return this.setHandler(({ view }) => {
         return view.render(template, data)
       })
     })
@@ -74,7 +76,7 @@ export default class ViewProvider {
     HttpContext.getter(
       'view',
       function (this: HttpContext) {
-        return view.share({ request: this.request }) as ViewContract
+        return view.share({ request: this.request })
       },
       true
     )
@@ -85,9 +87,7 @@ export default class ViewProvider {
    */
   async #shouldCacheViews(): Promise<boolean> {
     const config = await this.app.container.make('config')
-    const cacheViews = config.get('views.cache', true)
-
-    return cacheViews as boolean
+    return config.get<boolean>('views.cache', true)
   }
 
   /**

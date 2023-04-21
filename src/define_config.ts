@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import { ViewConfig } from '../index.js'
+import { ViewConfig } from './types/main.js'
 
 /**
  * Define configuration for the view provider

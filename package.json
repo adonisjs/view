@@ -14,14 +14,13 @@
     "build/index.d.ts.map",
     "build/src",
     "build/services",
-		"build/providers",
-    "build/types"
+		"build/providers"
 	],
 	"exports": {
     ".": "./build/index.js",
-		"./services/view": "./build/services/view.js",
-		"./providers/view_provider": "./build/providers/view_provider.js",
-		"./types": "./build/types/index.js"
+		"./services/main": "./build/services/view.js",
+		"./providers/views_provider": "./build/providers/views_provider.js",
+		"./types": "./build/src/types.js"
 	},
 	"scripts": {
 		"mrm": "mrm --preset=@adonisjs/mrm-preset",
