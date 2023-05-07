@@ -1,0 +1,14 @@
+---
+to: {{ app.configPath('views.ts') }}
+---
+import env from '#start/env'
+import { defineConfig } from '@adonisjs/view'
+
+/**
+ * Configuration options for the View provider
+ */
+export default defineConfig({
+  cache: {
+    enabled: env.get('CACHE_VIEWS', false),
+  }
+})

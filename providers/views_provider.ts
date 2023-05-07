@@ -9,7 +9,7 @@
 
 import { BriskRoute, HttpContext } from '@adonisjs/core/http'
 import type { ApplicationService, HttpRouterService } from '@adonisjs/core/types'
-import { ViewContract } from '../src/types/main.js'
+import { ViewConfig, ViewContract } from '../src/types/main.js'
 
 /**
  * View provider to register view to the application
@@ -85,9 +85,9 @@ export default class ViewProvider {
   /**
    * Decide whether or not to cache views.
    */
-  async #shouldCacheViews(): Promise<boolean> {
-    const config = await this.app.container.make('config')
-    return config.get<boolean>('views.cache', true)
+  #shouldCacheViews(): boolean {
+    const config = this.app.config.get<ViewConfig>('views', {})
+    return config.cache.enabled
   }
 
   /**
@@ -98,8 +98,7 @@ export default class ViewProvider {
       const { Edge } = await import('edge.js')
       const { Supercharged } = await import('edge-supercharged')
 
-      const cacheViews = await this.#shouldCacheViews()
-
+      const cacheViews = this.#shouldCacheViews()
       const edge = new Edge({ cache: cacheViews })
 
       /**

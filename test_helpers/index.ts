@@ -27,6 +27,7 @@ export async function setupApp(
       rcFileContents: {
         providers: ['../../providers/views_provider.js'],
       },
+      config: { views: { cache: false } },
     })
     .withCoreConfig()
     .withCoreProviders()

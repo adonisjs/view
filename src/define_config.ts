@@ -13,10 +13,9 @@ import { ViewConfig } from './types/main.js'
  * Define configuration for the view provider
  */
 export function defineConfig(config: Partial<ViewConfig>) {
-  const normalizedConfig = {
-    cache: { enabled: true },
-    ...config,
+  return {
+    cache: {
+      enabled: config.cache?.enabled ?? true,
+    },
   }
-
-  return normalizedConfig
 }
