@@ -8,9 +8,9 @@
  */
 
 import app from '@adonisjs/core/services/app'
-import { ViewContract } from '../src/types/main.js'
+import { ViewService } from '../src/types/main.js'
 
-let view: ViewContract
+let view: ViewService
 
 /**
  * Returns a singleton instance of the view class

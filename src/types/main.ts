@@ -13,6 +13,12 @@ export interface ViewContract extends EdgeContract {}
 export interface ViewRendererContract extends EdgeRendererContract {}
 
 /**
+ * View service is a singleton view instance registered
+ * to the container
+ */
+export interface ViewService extends ViewContract {}
+
+/**
  * Config accepted by the view provider
  */
 export type ViewConfig = {
