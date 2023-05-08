@@ -4,7 +4,7 @@ import { fileSystem } from '@japa/file-system'
 import { expectTypeOf } from '@japa/expect-type'
 import { runFailedTests } from '@japa/run-failed-tests'
 import { processCliArgs, configure, run } from '@japa/runner'
-import { pathToFileURL } from 'url'
+import { pathToFileURL } from 'node:url'
 
 /*
 |--------------------------------------------------------------------------

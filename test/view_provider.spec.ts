@@ -10,7 +10,7 @@
 import { test } from '@japa/runner'
 import { Edge } from 'edge.js'
 import { BASE_URL, setupApp } from '../test_helpers/index.js'
-import { fileURLToPath } from 'url'
+import { fileURLToPath } from 'node:url'
 
 test.group('View Provider', () => {
   test('register view provider', async ({ assert }) => {

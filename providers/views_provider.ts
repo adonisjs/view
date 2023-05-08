@@ -93,7 +93,7 @@ export default class ViewProvider {
   /**
    * Register view binding
    */
-  public register() {
+  register() {
     this.app.container.singleton('view', async () => {
       const { Edge } = await import('edge.js')
       const { Supercharged } = await import('edge-supercharged')
@@ -120,7 +120,7 @@ export default class ViewProvider {
   /**
    * Setup view on boot
    */
-  public async boot() {
+  async boot() {
     const view = await this.app.container.make('view')
     const router = await this.app.container.make('router')
 
