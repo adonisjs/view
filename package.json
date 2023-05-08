@@ -19,12 +19,14 @@
 		"build/index.d.ts.map",
 		"build/src",
 		"build/services",
-		"build/providers"
+		"build/providers",
+    "build/factories"
 	],
 	"exports": {
 		".": "./build/index.js",
 		"./services/main": "./build/services/view.js",
 		"./providers/views_provider": "./build/providers/views_provider.js",
+    "./factories": "./build/factories/main.js",
 		"./types": "./build/src/types/main.js"
 	},
 	"scripts": {
