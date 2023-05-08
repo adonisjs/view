@@ -1,6 +1,6 @@
 {
 	"name": "@adonisjs/view",
-	"version": "7.0.0-0",
+	"version": "7.0.0-1",
 	"description": "View/template engine for AdonisJs",
 	"main": "build/index.js",
 	"type": "module",
