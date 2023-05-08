@@ -1,6 +1,6 @@
 {
 	"name": "@adonisjs/view",
-	"version": "7.0.0-1",
+	"version": "7.0.0-2",
 	"description": "View/template engine for AdonisJs",
 	"main": "build/index.js",
 	"type": "module",
@@ -8,7 +8,7 @@
 		"index.ts",
 		"configure.ts",
 		"src",
-    "factories",
+		"factories",
 		"services",
 		"providers",
 		"build/stubs",
@@ -21,13 +21,13 @@
 		"build/src",
 		"build/services",
 		"build/providers",
-    "build/factories"
+		"build/factories"
 	],
 	"exports": {
 		".": "./build/index.js",
 		"./services/main": "./build/services/view.js",
 		"./providers/views_provider": "./build/providers/views_provider.js",
-    "./factories": "./build/factories/main.js",
+		"./factories": "./build/factories/main.js",
 		"./types": "./build/src/types/main.js"
 	},
 	"scripts": {
@@ -77,7 +77,7 @@
 		"del-cli": "^5.0.0",
 		"eslint": "^8.40.0",
 		"eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-adonis": "^3.0.3",
+		"eslint-plugin-adonis": "^3.0.3",
 		"eslint-plugin-prettier": "^4.2.1",
 		"github-label-sync": "^2.3.1",
 		"husky": "^8.0.3",
