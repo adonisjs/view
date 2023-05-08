@@ -8,6 +8,7 @@
 		"index.ts",
 		"configure.ts",
 		"src",
+    "factories",
 		"services",
 		"providers",
 		"build/stubs",
