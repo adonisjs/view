@@ -30,7 +30,6 @@
 		"./types": "./build/src/types/main.js"
 	},
 	"scripts": {
-		"mrm": "mrm --preset=@adonisjs/mrm-preset",
 		"pretest": "npm run lint",
 		"test": "c8 npm run quick:test",
 		"lint": "eslint . --ext=.ts",
@@ -38,7 +37,6 @@
 		"compile": "npm run lint && npm run clean && tsc && npm run copy:templates",
 		"copy:templates": "copyfiles \"stubs/**/*.stub\" build",
 		"build": "npm run compile",
-		"commit": "git-cz",
 		"release": "np --message=\"chore(release): %s\"",
 		"version": "npm run build",
 		"sync-labels": "github-label-sync --labels .github/labels.json adonisjs/logger",
