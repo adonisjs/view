@@ -1,11 +1,11 @@
 {
 	"name": "@adonisjs/view",
-	"version": "7.0.0-2",
+	"version": "7.0.0-3",
 	"description": "View/template engine for AdonisJs",
 	"main": "build/index.js",
 	"type": "module",
 	"files": [
-    "commands",
+		"commands",
 		"index.ts",
 		"configure.ts",
 		"src",
@@ -22,13 +22,13 @@
 		"build/src",
 		"build/services",
 		"build/providers",
-    "build/commands",
+		"build/commands",
 		"build/factories"
 	],
 	"exports": {
 		".": "./build/index.js",
-    "./commands": "./build/commands/main.js",
-    "./commands/*": "./build/commands/*.js",
+		"./commands": "./build/commands/main.js",
+		"./commands/*": "./build/commands/*.js",
 		"./services/main": "./build/services/view.js",
 		"./providers/views_provider": "./build/providers/views_provider.js",
 		"./factories": "./build/factories/main.js",
@@ -48,7 +48,7 @@
 		"quick:test": "node --loader=ts-node/esm bin/test.ts",
 		"format": "prettier --write .",
 		"prepublishOnly": "npm run build",
-    "index:commands": "adonis-kit index build/commands"
+		"index:commands": "adonis-kit index build/commands"
 	},
 	"repository": {
 		"type": "git",
