@@ -15,6 +15,7 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "strictPropertyInitialization": true,
+    "experimentalDecorators": true,
     "noImplicitAny": true,
     "strictBindCallApply": true,
     "strictFunctionTypes": true,

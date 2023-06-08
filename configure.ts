@@ -17,7 +17,9 @@ export async function configure(command: Configure) {
   await command.defineEnvVariables({ CACHE_VIEWS: false })
 
   await command.updateRcFile((rcFile) => {
-    rcFile.addProvider('@adonisjs/view/providers/views_provider')
-    rcFile.addMetaFile('resources/views/**/*.edge', true)
+    rcFile
+      .addProvider('@adonisjs/view/providers/views_provider')
+      .addMetaFile('resources/views/**/*.edge', true)
+      .addCommand('@adonisjs/view/commands')
   })
 }

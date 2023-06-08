@@ -5,6 +5,7 @@
 	"main": "build/index.js",
 	"type": "module",
 	"files": [
+    "commands",
 		"index.ts",
 		"configure.ts",
 		"src",
@@ -21,10 +22,13 @@
 		"build/src",
 		"build/services",
 		"build/providers",
+    "build/commands",
 		"build/factories"
 	],
 	"exports": {
 		".": "./build/index.js",
+    "./commands": "./build/commands/main.js",
+    "./commands/*": "./build/commands/*.js",
 		"./services/main": "./build/services/view.js",
 		"./providers/views_provider": "./build/providers/views_provider.js",
 		"./factories": "./build/factories/main.js",
@@ -35,7 +39,7 @@
 		"test": "c8 npm run quick:test",
 		"lint": "eslint . --ext=.ts",
 		"clean": "del-cli build",
-		"compile": "npm run lint && npm run clean && tsc && npm run copy:templates",
+		"compile": "npm run lint && npm run clean && tsc && npm run copy:templates && npm run index:commands",
 		"copy:templates": "copyfiles \"stubs/**/*.stub\" build",
 		"build": "npm run compile",
 		"release": "np --message=\"chore(release): %s\"",
@@ -43,7 +47,8 @@
 		"sync-labels": "github-label-sync --labels .github/labels.json adonisjs/logger",
 		"quick:test": "node --loader=ts-node/esm bin/test.ts",
 		"format": "prettier --write .",
-		"prepublishOnly": "npm run build"
+		"prepublishOnly": "npm run build",
+    "index:commands": "adonis-kit index build/commands"
 	},
 	"repository": {
 		"type": "git",
@@ -90,7 +95,7 @@
 		"@adonisjs/core": "^6.1.5-4"
 	},
 	"dependencies": {
-		"@poppinss/utils": "^6.5.0-2",
+		"@poppinss/utils": "6.5.0-2",
 		"edge-error": "^3.0.0",
 		"edge-supercharged": "^3.1.1",
 		"edge.js": "^5.5.1"

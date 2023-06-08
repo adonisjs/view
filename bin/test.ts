@@ -5,6 +5,7 @@ import { expectTypeOf } from '@japa/expect-type'
 import { runFailedTests } from '@japa/run-failed-tests'
 import { processCliArgs, configure, run } from '@japa/runner'
 import { pathToFileURL } from 'node:url'
+import { BASE_URL } from '../test_helpers/index.js'
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,15 @@ configure({
   ...processCliArgs(process.argv.slice(2)),
   ...{
     files: ['test/**/*.spec.ts'],
-    plugins: [assert(), runFailedTests(), fileSystem(), expectTypeOf()],
+    plugins: [
+      assert(),
+      runFailedTests(),
+      fileSystem({
+        basePath: BASE_URL,
+        autoClean: true,
+      }),
+      expectTypeOf(),
+    ],
     reporters: [specReporter()],
     importer: (filePath: string) => import(pathToFileURL(filePath).href),
   },
