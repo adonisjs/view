@@ -4,6 +4,9 @@
 	"version": "7.0.0-3",
 	"main": "build/index.js",
 	"type": "module",
+  "engines": {
+    "node": ">=18.16.0"
+  },
 	"files": [
 		"build/stubs",
 		"build/configure.js",
