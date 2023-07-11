@@ -1,12 +1,12 @@
 {
 	"name": "@adonisjs/view",
 	"description": "View/template engine for AdonisJs",
-	"version": "7.0.0-3",
+	"version": "7.0.0-4",
 	"main": "build/index.js",
 	"type": "module",
-  "engines": {
-    "node": ">=18.16.0"
-  },
+	"engines": {
+		"node": ">=18.16.0"
+	},
 	"files": [
 		"build/stubs",
 		"build/configure.js",
@@ -41,7 +41,7 @@
 		"sync-labels": "github-label-sync --labels .github/labels.json adonisjs/view",
 		"quick:test": "node --enable-source-maps --loader=ts-node/esm bin/test.ts",
 		"format": "prettier --write .",
-    "typecheck": "tsc --noEmit",
+		"typecheck": "tsc --noEmit",
 		"prepublishOnly": "npm run build",
 		"index:commands": "adonis-kit index build/commands"
 	},
