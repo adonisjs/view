@@ -83,8 +83,24 @@ test.group('View Provider', () => {
     assert.equal(view.default, view2)
   })
 
+  test('todo: register repl binding', async ({ assert }) => {
+    const { app } = await setupApp('repl')
+
+    const repl = await app.container.make('repl')
+
+    const replMethods = repl.getMethods()
+    assert.property(replMethods, 'loadView')
+    assert.isFunction(replMethods.loadView.handler)
+  })
+
+  test('do not register repl binding when not in repl environment', async ({ assert }) => {
+    const { app } = await setupApp('web')
+    const repl = await app.container.make('repl')
+
+    const replMethods = repl.getMethods()
+    assert.notProperty(replMethods, 'loadView')
+  })
+
   test('todo: register env global')
-  test('todo: register repl binding')
-  test('todo: do not register repl binding when not in repl environment')
   test('todo: register driveUrl and driveSignedUrl globals')
 })

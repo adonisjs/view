@@ -10,12 +10,25 @@
 import { BriskRoute, HttpContext } from '@adonisjs/core/http'
 import type { ApplicationService, HttpRouterService } from '@adonisjs/core/types'
 import { ViewConfig, ViewContract } from '../src/types/main.js'
+import { defineReplBindings } from '../src/bindings.js'
 
 /**
  * View provider to register view to the application
  */
 export default class ViewProvider {
   constructor(protected app: ApplicationService) {}
+
+  /**
+   * Register repl bindings
+   */
+  async #registerReplBindings() {
+    if (this.app.getEnvironment() !== 'repl') {
+      return
+    }
+
+    const repl = await this.app.container.make('repl')
+    defineReplBindings(this.app, repl)
+  }
 
   /**
    * Add globals for resolving routes
@@ -123,6 +136,11 @@ export default class ViewProvider {
   async boot() {
     const view = await this.app.container.make('view')
     const router = await this.app.container.make('router')
+
+    /**
+     * Repl bindings
+     */
+    this.#registerReplBindings()
 
     /**
      * Registering globals
