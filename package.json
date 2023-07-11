@@ -1,7 +1,7 @@
 {
 	"name": "@adonisjs/view",
-	"version": "7.0.0-3",
 	"description": "View/template engine for AdonisJs",
+	"version": "7.0.0-3",
 	"main": "build/index.js",
 	"type": "module",
 	"files": [
@@ -50,23 +50,11 @@
 		"prepublishOnly": "npm run build",
 		"index:commands": "adonis-kit index build/commands"
 	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/adonisjs/view.git"
-	},
-	"keywords": [
-		"view",
-		"edge.js",
-		"template"
-	],
-	"author": "virk,adonisjs",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/adonisjs/view/issues"
-	},
-	"homepage": "https://github.com/adonisjs/view#readme",
 	"devDependencies": {
 		"@adonisjs/core": "^6.1.5-4",
+		"@adonisjs/eslint-config": "^1.1.8",
+		"@adonisjs/prettier-config": "^1.1.8",
+		"@adonisjs/tsconfig": "^1.1.8",
 		"@commitlint/cli": "^17.6.3",
 		"@commitlint/config-conventional": "^17.6.3",
 		"@japa/assert": "^1.4.1",
@@ -91,44 +79,33 @@
 		"ts-node": "^10.9.1",
 		"typescript": "^5.0.4"
 	},
-	"peerDependencies": {
-		"@adonisjs/core": "^6.1.5-4"
-	},
 	"dependencies": {
 		"edge-error": "^3.0.0",
 		"edge-supercharged": "^3.1.1",
 		"edge.js": "^5.5.1"
 	},
-	"eslintConfig": {
-		"extends": [
-			"plugin:adonis/typescriptPackage",
-			"prettier"
-		],
-		"plugins": [
-			"prettier"
-		],
-		"rules": {
-			"prettier/prettier": [
-				"error",
-				{
-					"endOfLine": "auto"
-				}
-			]
-		}
+	"peerDependencies": {
+		"@adonisjs/core": "^6.1.5-4"
 	},
-	"eslintIgnore": [
-		"build"
+	"author": "virk,adonisjs",
+	"license": "MIT",
+	"homepage": "https://github.com/adonisjs/view#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/adonisjs/view.git"
+	},
+	"bugs": {
+		"url": "https://github.com/adonisjs/view/issues"
+	},
+	"keywords": [
+		"view",
+		"edge.js",
+		"template"
 	],
-	"prettier": {
-		"trailingComma": "es5",
-		"semi": false,
-		"singleQuote": true,
-		"useTabs": false,
-		"quoteProps": "consistent",
-		"bracketSpacing": true,
-		"arrowParens": "always",
-		"printWidth": 100
-	},
+  "eslintConfig": {
+    "extends": "@adonisjs/eslint-config/package"
+  },
+  "prettier": "@adonisjs/prettier-config",
 	"commitlint": {
 		"extends": [
 			"@commitlint/config-conventional"
