@@ -45,7 +45,7 @@ test.group('Configure', (group) => {
 
     await assert.fileExists('config/views.ts')
     await assert.fileExists('.adonisrc.json')
-    await assert.fileContains('.adonisrc.json', '@adonisjs/view/providers/views_provider')
+    await assert.fileContains('.adonisrc.json', '@adonisjs/view/views_provider')
     await assert.fileContains('.adonisrc.json', '@adonisjs/view/commands')
     await assert.fileContains('config/views.ts', 'defineConfig')
 

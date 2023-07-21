@@ -24,7 +24,7 @@
 		"./commands": "./build/commands/main.js",
 		"./commands/*": "./build/commands/*.js",
 		"./services/main": "./build/services/view.js",
-		"./providers/views_provider": "./build/providers/views_provider.js",
+		"./views_provider": "./build/providers/views_provider.js",
 		"./factories": "./build/factories/main.js",
 		"./types": "./build/src/types/main.js"
 	},

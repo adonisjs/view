@@ -18,7 +18,7 @@ export async function configure(command: Configure) {
 
   await command.updateRcFile((rcFile) => {
     rcFile
-      .addProvider('@adonisjs/view/providers/views_provider')
+      .addProvider('@adonisjs/view/views_provider')
       .addMetaFile('resources/views/**/*.edge', true)
       .addCommand('@adonisjs/view/commands')
   })
