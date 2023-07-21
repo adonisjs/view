@@ -101,6 +101,13 @@ test.group('View Provider', () => {
     assert.notProperty(replMethods, 'loadView')
   })
 
+  test('copy all edge globals methods', async ({ assert }) => {
+    const { app } = await setupApp('web')
+
+    const view = await app.container.make('view')
+    assert.property(view.GLOBALS, 'safe')
+  })
+
   test('todo: register env global')
   test('todo: register driveUrl and driveSignedUrl globals')
 })

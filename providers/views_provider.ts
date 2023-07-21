@@ -54,10 +54,10 @@ export default class ViewProvider {
    * templates.
    */
   async #addGlobals(view: ViewContract) {
-    const config = await this.app.container.make('config')
-
     view.global('app', this.app)
-    view.global('config', (key: string, defaultValue?: any) => config.get(key, defaultValue))
+    view.global('config', (key: string, defaultValue?: any) =>
+      this.app.config.get(key, defaultValue)
+    )
   }
 
   /**
@@ -65,6 +65,7 @@ export default class ViewProvider {
    */
   async #copyEdgeGlobals(view: ViewContract) {
     const edge = await import('edge.js')
+
     Object.keys(edge.GLOBALS).forEach((key) => {
       view.global(key, edge.GLOBALS[key as keyof typeof edge.GLOBALS])
     })
@@ -140,14 +141,14 @@ export default class ViewProvider {
     /**
      * Repl bindings
      */
-    this.#registerReplBindings()
+    await this.#registerReplBindings()
 
     /**
      * Registering globals
      */
     this.#addRouteGlobal(view, router)
     this.#addGlobals(view)
-    this.#copyEdgeGlobals(view)
+    await this.#copyEdgeGlobals(view)
 
     /**
      * Registering the brisk route
