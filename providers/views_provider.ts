@@ -10,7 +10,6 @@
 import { BriskRoute, HttpContext } from '@adonisjs/core/http'
 import type { ApplicationService, HttpRouterService } from '@adonisjs/core/types'
 import { ViewConfig, ViewContract } from '../src/types/main.js'
-import { defineReplBindings } from '../src/bindings.js'
 
 /**
  * View provider to register view to the application
@@ -21,13 +20,15 @@ export default class ViewProvider {
   /**
    * Register repl bindings
    */
-  async #registerReplBindings() {
+  #registerReplBindings() {
     if (this.app.getEnvironment() !== 'repl') {
       return
     }
 
-    const repl = await this.app.container.make('repl')
-    defineReplBindings(this.app, repl)
+    this.app.container.resolving('repl', async (repl) => {
+      const { defineReplBindings } = await import('../src/bindings.js')
+      defineReplBindings(this.app, repl)
+    })
   }
 
   /**
@@ -105,9 +106,9 @@ export default class ViewProvider {
   }
 
   /**
-   * Register view binding
+   * Register view in the container
    */
-  register() {
+  #registerViewBinding() {
     this.app.container.singleton('view', async () => {
       const { Edge } = await import('edge.js')
       const { Supercharged } = await import('edge-supercharged')
@@ -132,16 +133,19 @@ export default class ViewProvider {
   }
 
   /**
+   * Register bindings
+   */
+  async register() {
+    this.#registerViewBinding()
+    this.#registerReplBindings()
+  }
+
+  /**
    * Setup view on boot
    */
   async boot() {
     const view = await this.app.container.make('view')
     const router = await this.app.container.make('router')
-
-    /**
-     * Repl bindings
-     */
-    await this.#registerReplBindings()
 
     /**
      * Registering globals

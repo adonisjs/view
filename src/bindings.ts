@@ -1,14 +1,14 @@
 /*
  * @adonisjs/view
  *
- * (c) Harminder Virk <virk@adonisjs.com>
+ * (c) AdonisJS
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-import { Repl } from '@adonisjs/core/repl'
-import { ApplicationService } from '@adonisjs/core/types'
+import type { Repl } from '@adonisjs/core/repl'
+import type { ApplicationService } from '@adonisjs/core/types'
 
 /**
  * Define repl bindings. The method must be invoked when application environment

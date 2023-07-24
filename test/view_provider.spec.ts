@@ -83,7 +83,7 @@ test.group('View Provider', () => {
     assert.equal(view.default, view2)
   })
 
-  test('todo: register repl binding', async ({ assert }) => {
+  test('register repl binding', async ({ assert }) => {
     const { app } = await setupApp('repl')
 
     const repl = await app.container.make('repl')
@@ -107,7 +107,4 @@ test.group('View Provider', () => {
     const view = await app.container.make('view')
     assert.property(view.GLOBALS, 'safe')
   })
-
-  test('todo: register env global')
-  test('todo: register driveUrl and driveSignedUrl globals')
 })
