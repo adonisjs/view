@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import type { EdgeContract, EdgeRendererContract } from 'edge.js'
+import type { EdgeContract, EdgeRendererContract } from 'edge.js/types'
 
 export interface ViewContract extends EdgeContract {}
 export interface ViewRendererContract extends EdgeRendererContract {}
@@ -33,4 +33,4 @@ export type {
   EdgeBufferContract,
   TagTokenContract,
   TemplateConstructorContract,
-} from 'edge.js'
+} from 'edge.js/types'

@@ -2,11 +2,11 @@
 	"name": "@adonisjs/view",
 	"description": "View/template engine for AdonisJs",
 	"version": "7.0.0-5",
-	"main": "build/index.js",
-	"type": "module",
 	"engines": {
 		"node": ">=18.16.0"
 	},
+	"main": "build/index.js",
+	"type": "module",
 	"files": [
 		"build/stubs",
 		"build/configure.js",
@@ -70,9 +70,9 @@
 		"typescript": "^5.1.6"
 	},
 	"dependencies": {
-		"edge-error": "^3.0.0",
-		"edge-supercharged": "^3.1.1",
-		"edge.js": "^5.5.1"
+		"edge-error": "^4.0.0-0",
+		"edge-supercharged": "^4.0.0-0",
+		"edge.js": "^6.0.0-0"
 	},
 	"peerDependencies": {
 		"@adonisjs/core": "^6.1.5-7"
