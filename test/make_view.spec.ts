@@ -7,36 +7,28 @@
  * file that was distributed with this source code.
  */
 
-import { test } from '@japa/runner'
+import { join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-import { BASE_URL } from '../test_helpers/index.js'
-import { IgnitorFactory } from '@adonisjs/core/factories'
-import MakeView from '../commands/make_view.js'
+import { test } from '@japa/runner'
+import { AppFactory } from '@adonisjs/application/factories'
+
+import { stubsRoot } from '../stubs/index.js'
+
+const BASE_URL = new URL('./tmp/', import.meta.url)
+const BASE_PATH = fileURLToPath(BASE_URL)
 
 test.group('Make view command', () => {
-  test('create mailer stub', async ({ assert }) => {
-    const ignitor = new IgnitorFactory()
-      .withCoreProviders()
-      .withCoreConfig()
-      .create(BASE_URL, {
-        importer: (filePath) => {
-          if (filePath.startsWith('./') || filePath.startsWith('../')) {
-            return import(new URL(filePath, BASE_URL).href)
-          }
-
-          return import(filePath)
-        },
-      })
-
-    const app = ignitor.createApp('web')
+  test('create view stub', async ({ assert }) => {
+    const app = new AppFactory().create(BASE_URL, () => {})
     await app.init()
-    await app.boot()
 
-    const ace = await app.container.make('ace')
-    const command = await ace.create(MakeView, 'MyView')
+    const stub = await app.stubs.build('make/view.stub', { source: stubsRoot })
+    const { destination } = await stub.prepare({
+      filename: 'welcome_page.edge',
+      entity: app.generators.createEntity('WelcomePage'),
+    })
 
-    await command.exec()
-
-    await assert.fileExists('resources/views/my_view.edge')
+    assert.equal(destination, join(BASE_PATH, 'resources/views/welcome_page.edge'))
   })
 })
