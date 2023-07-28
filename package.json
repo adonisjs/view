@@ -1,7 +1,7 @@
 {
 	"name": "@adonisjs/view",
 	"description": "View/template engine for AdonisJs",
-	"version": "7.0.0-6",
+	"version": "7.0.0-7",
 	"engines": {
 		"node": ">=18.16.0"
 	},
